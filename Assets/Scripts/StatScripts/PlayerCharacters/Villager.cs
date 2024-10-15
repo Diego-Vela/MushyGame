@@ -8,7 +8,7 @@ public class Villager : Stats
     {
         // Set default values for a villager
         baseHP = 100; // Base at 100
-        baseAttack = 10; // Base at 5
+        baseAttack = 50; // Base at 5
         baseDexterity = 10; // Base at 5
         baseIntelligence = 10; // Base at 5
         baseSpeed = 92; // Base at 100
@@ -16,7 +16,7 @@ public class Villager : Stats
         level = 1;
         friend = true;
 
-        characterName = "Villager";
+        characterName = "Diego";
     }
 
     void Start()

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerMenu : MonoBehaviour
 {
@@ -8,7 +7,8 @@ public class PlayerMenu : MonoBehaviour
     private Button healButton; // Reference to the heal button
     private Button runButton; // Reference to the run button
 
-    public GameObject selectedEntity; // The entity that will take damage or be healed
+    public delegate void ActionChosenHandler(int actionKey); // Modify event to pass an action key
+    public static event ActionChosenHandler OnActionChosen;
 
     private void Start()
     {
@@ -18,40 +18,32 @@ public class PlayerMenu : MonoBehaviour
         runButton = GameObject.Find("Run").GetComponent<Button>();
 
         // Add listeners to the buttons
-        attackButton.onClick.AddListener(Attack);
-        healButton.onClick.AddListener(Heal);
-        runButton.onClick.AddListener(Run);
+        attackButton.onClick.AddListener(() => OnAttackButton());
+        healButton.onClick.AddListener(() => OnHealButton());
+        runButton.onClick.AddListener(() => OnRunButton());
     }
 
-    // Attack method - Calls the TakeDamage function on the selected entity
-    private void Attack()
+    public void OnAttackButton()
     {
-        if (selectedEntity != null)
-        {
-            selectedEntity.GetComponent<BattleEntity>().TakeDamage(50); // Example damage value of 50
-        }
-        else
-        {
-            Debug.LogError("No entity selected to attack.");
-        }
+        Debug.Log("Player chose to attack!");
+
+        // Notify listeners (BattleController) and pass action key '0' for attack
+        OnActionChosen?.Invoke(0); // '0' represents attack
     }
 
-    // Heal method - Heals the selected entity based on intelligence stat
-    private void Heal()
+    public void OnHealButton()
     {
-        if (selectedEntity != null)
-        {
-            selectedEntity.GetComponent<BattleEntity>().Heal(20);
-        }
-        else
-        {
-            Debug.LogError("No entity selected to heal.");
-        }
+        Debug.Log("Player chose to heal!");
+
+        // Notify listeners and pass action key '1' for heal
+        OnActionChosen?.Invoke(1); // '1' represents heal
     }
 
-    // Run method - Returns to the "HomeTown" scene
-    private void Run()
+    public void OnRunButton()
     {
-        SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+        Debug.Log("Player chose to run!");
+
+        // Notify listeners and pass action key '2' for run
+        OnActionChosen?.Invoke(2); // '2' represents run
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BattleController : MonoBehaviour
 {
@@ -14,9 +16,33 @@ public class BattleController : MonoBehaviour
     private int enemies = 0;
 
     public GameObject battleMenu; // UI for player input
+    private int currentActionKey = -1; // Stores the action key (0 for attack, 1 for heal, 2 for run)
+    public BattleEntity enemy; // Reference to the target 
+    public BattleEntity player; // Reference to player
+
     #endregion
 
     #region methods
+    
+    private void OnEnable()
+    {
+        // Event from PlayerMenu, subscribe to event
+        PlayerMenu.OnActionChosen += HandleActionChosen;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to prevent memory leaks
+        PlayerMenu.OnActionChosen -= HandleActionChosen;
+    }
+
+    // Method to handle the action chosen event, receives the action key from PlayerMenu
+    private void HandleActionChosen(int actionKey)
+    {
+        currentActionKey = actionKey;
+        actionChosen = true; // Set the flag to continue the coroutine
+    }
+
     void Start()
     {
         // Find and add all BattleEntity components in the scene to the list
@@ -26,7 +52,6 @@ public class BattleController : MonoBehaviour
         StartCoroutine(BeginBattle());
     }
 
-    // Main battle loop
     IEnumerator BeginBattle()
     {
         // Continue battle while there are still friendlies and enemies
@@ -41,9 +66,20 @@ public class BattleController : MonoBehaviour
             // Process turns in order
             foreach (BattleEntity entity in readyEntities)
             {
+                Debug.Log(entity.characterName + " takes their turn!");
+
                 yield return StartCoroutine(TakeTurn(entity));
+
+                // Ensure turn completion
+                Debug.Log($"{entity.characterName} has finished their turn.");
+
                 entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
             }
+
+            // Clear the ready entities list for the next round
+            readyEntities.Clear();
+
+            Debug.Log("Finished an iteration, clearing queue");
         }
 
         // End the battle and determine the outcome
@@ -53,11 +89,9 @@ public class BattleController : MonoBehaviour
     // Initialize the battle and count the entities
     void InitializeBattle()
     {
-        // Initialize entity counts
         friendlies = 0;
         enemies = 0;
 
-        // Count friendlies and enemies
         foreach (BattleEntity entity in entities)
         {
             if (entity.isFriendly)
@@ -76,8 +110,8 @@ public class BattleController : MonoBehaviour
     // Get a list of entities that are ready to take their turn (speed exceeds threshold)
     List<BattleEntity> GetReadyEntities()
     {
-        List<BattleEntity> readyEntities = new List<BattleEntity>(); // List that tracks how many entities are ready for a turn.
-        bool ready = false; // False while all currentSpeed is under 10000
+        List<BattleEntity> readyEntities = new List<BattleEntity>();
+        bool ready = false;
 
         while (!ready)
         {
@@ -103,16 +137,14 @@ public class BattleController : MonoBehaviour
             (b.currentSpeed - speedThreshold).CompareTo(a.currentSpeed - speedThreshold));
     }
 
-    // Coroutine to handle the entity's turn logic
     IEnumerator TakeTurn(BattleEntity entity)
     {
-        Debug.Log(entity.characterName + " takes their turn!");
-
         if (entity.isFriendly)
         {
             // Unhide battle menu and wait for player action
             battleMenu.SetActive(true);
-            actionChosen = false; // Reset action flag
+            actionChosen = false; // Reset action flag for player's turn
+            currentActionKey = -1; // Reset action key
 
             // Wait for the player to choose an action
             while (!actionChosen)
@@ -123,36 +155,55 @@ public class BattleController : MonoBehaviour
             // Hide battle menu after action is taken
             battleMenu.SetActive(false);
 
-            // Perform the chosen action (for now, just damage the enemy)
-            // You could extend this to include more options (heal, run, etc.)
-            entity.TakeDamage(entity.attack);
+            // Handle the chosen action based on the actionKey
+            HandlePlayerAction(player);
         }
         else
         {
             // Enemy attacks automatically
-            Debug.Log(entity.characterName + " attacks!");
-            entity.TakeDamage(entity.attack); // Attack logic for enemies
+            Debug.Log($"{entity.characterName} attacks!");
+            player.TakeDamage(entity.attack); // Attack logic for enemies
         }
 
-        // If the entity is defeated, remove it from the battle
+        // Check if the entity has been defeated
         if (entity.isDead)
         {
             RemoveEntityFromBattle(entity);
         }
     }
 
-    // Method to be called when an action is chosen (linked to attack/heal/run buttons)
-    public void ActionChosen()
+    // Method to handle player action based on the action key
+    private void HandlePlayerAction(BattleEntity entity)
     {
-        actionChosen = true; // Set the flag to continue the coroutine
+        switch (currentActionKey)
+        {
+            case 0: // Attack
+                Debug.Log("Player attacks!");
+                enemy.TakeDamage(entity.attack); 
+                break;
+
+            case 1: // Heal
+                Debug.Log("Player heals!");
+                entity.Heal(entity.intelligence*2);
+                break;
+
+            case 2: // Run
+                Debug.Log("Player runs away!");
+                SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+                break;
+
+            default:
+                Debug.LogError("Invalid action key!");
+                break;
+        }
+        actionChosen = true;
     }
 
     // Remove an entity from the battle and update the count
     void RemoveEntityFromBattle(BattleEntity entity)
     {
-        entities.Remove(entity);  // Remove the entity from the list
+        entities.Remove(entity);
 
-        // Update the global counts
         if (entity.isFriendly)
         {
             friendlies--;
