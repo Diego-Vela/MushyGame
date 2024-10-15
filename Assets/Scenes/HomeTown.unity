@@ -15225,6 +15225,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3475c728288dd4744ac30a234e544c02, type: 3}
+--- !u!1 &6348262094308089905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3780557013295970141, guid: 0797e2d4d65be4b4ebe26161181875ef, type: 3}
+  m_PrefabInstance: {fileID: 7457868391563201120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7457868391563201120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15289,11 +15294,41 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 134699678}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8620643805222589703, guid: 0797e2d4d65be4b4ebe26161181875ef, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5650616070989307181, guid: 0797e2d4d65be4b4ebe26161181875ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9079545966176337345}
   m_SourcePrefab: {fileID: 100100000, guid: 0797e2d4d65be4b4ebe26161181875ef, type: 3}
+--- !u!1 &9079545966176337344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5650616070989307181, guid: 0797e2d4d65be4b4ebe26161181875ef, type: 3}
+  m_PrefabInstance: {fileID: 7457868391563201120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9079545966176337345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9079545966176337344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38c15bb54696854e93b2ca86ed6efc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguePanel: {fileID: 134699678}
+  npcDialogue: {fileID: 11400000, guid: de46fdaf5db7eed4b82ecdffafe0fb47, type: 2}
+  currentDialogueIndex: 0
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isCompanion: 0
+  npcObject: {fileID: 6348262094308089905}
+  battleSceneName: Battle
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

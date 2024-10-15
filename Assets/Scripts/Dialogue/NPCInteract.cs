@@ -5,7 +5,7 @@ public class NPCInteraction : MonoBehaviour
     public GameObject dialoguePanel; // The dialogue UI panel
     public DialogueData npcDialogue; // Object containing dialogue data for NPC
     private bool isPlayerInRange; // To check if player is in the interaction zone
-    private int currentDialogueIndex = 0; // Track which dialogue line we're on
+    public int currentDialogueIndex = 0; // Track which dialogue line we're on
     public LayerMask interactionLayer; // Layer for InteractionZone
     public bool isCompanion;
     public GameObject npcObject; // Set the parent GameObject (the NPC object)
@@ -28,8 +28,8 @@ public class NPCInteraction : MonoBehaviour
         }
     }
 
-    // Handle the interaction when the player presses Space
-    void InteractWithNPC()
+    // Mark this method as virtual to allow overriding in subclasses
+    protected virtual void InteractWithNPC()
     {
         if (dialoguePanel.activeInHierarchy)
         {
@@ -58,19 +58,19 @@ public class NPCInteraction : MonoBehaviour
     }
 
     // Update the dialogue text in the dialogue panel
-   void UpdateDialogueText(string newDialogue)
-{
-    var textComponent = dialoguePanel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+    public void UpdateDialogueText(string newDialogue)
+    {
+        var textComponent = dialoguePanel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
 
-    if (textComponent != null)
-    {
-        textComponent.text = newDialogue;
+        if (textComponent != null)
+        {
+            textComponent.text = newDialogue;
+        }
+        else
+        {
+            Debug.LogError("TextMeshProUGUI component not found!");
+        }
     }
-    else
-    {
-        Debug.LogError("TextMeshProUGUI component not found!");
-    }
-}
 
     // Detect when the player enters the trigger collider (interaction zone)
     private void OnTriggerEnter2D(Collider2D other)
@@ -94,7 +94,8 @@ public class NPCInteraction : MonoBehaviour
         }
     }
 
-    private void deactivateNPC() {        
+    public void deactivateNPC()
+    {        
         // Deactivate NPC
         npcObject.SetActive(false);
         // Debug Statement
