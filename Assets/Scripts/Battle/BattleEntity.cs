@@ -59,7 +59,12 @@ public class BattleEntity : MonoBehaviour
     private void initializeHealthSlider() {
         if (isFriendly)
         {
-            // Set health slider
+            GameObject HealthObject = GameObject.FindWithTag("Health");
+            if (HealthObject != null)
+
+                healthSlider = HealthObject.GetComponent<Slider>();
+            else
+                Debug.LogError("Health GameObject not found or does not have a Slider!");
         }
         else 
         {
@@ -95,6 +100,7 @@ public class BattleEntity : MonoBehaviour
             currentHP = hp;
         }
         Debug.Log(characterName + " healed by " + healAmount + ". Current HP: " + currentHP);
+        UpdateHealthBar();
     }
 
     // Private method called when HP reaches zero

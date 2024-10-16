@@ -1,13 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public float moveDuration = 0.05f;  // Duration to move between tiles
+    #region variables
+    
+    public float moveDuration = 0.01f;  // Duration to move between tiles
     public float tileSize = 16f;       // Size of a tile in pixels
     public LayerMask collisionLayer;   // Set this to the layer that colliders are on
     private bool isMoving = false;
     private Vector2 input;
+
+    #endregion
+
+    #region movement
 
     void Update()
     {
@@ -70,4 +76,27 @@ public class PlayerMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(targetPosition, 0.5f, collisionLayer);
         return hit != null;
     }
+
+    #endregion
+
+    #region save
+
+    public void savePlayer()
+    {
+        SaveSystem.savePlayer(this);
+    }
+
+    public void loadPlayer()
+    {
+        PlayerData data = SaveSystem.loadPlayer();
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+
+        transform.position = position;
+    }
+    
+    #endregion
 }

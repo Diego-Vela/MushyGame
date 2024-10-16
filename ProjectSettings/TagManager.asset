@@ -7,6 +7,10 @@ TagManager:
   - EnemyBoss
   - Enemy
   - EnemyBossHealth
+  - Health
+  - BattleController
+  - Actor1Dialogue
+  - Actor2Dialogue
   layers:
   - Default
   - TransparentFX

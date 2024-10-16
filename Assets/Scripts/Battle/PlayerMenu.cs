@@ -7,8 +7,8 @@ public class PlayerMenu : MonoBehaviour
     private Button healButton; // Reference to the heal button
     private Button runButton; // Reference to the run button
 
-    public delegate void ActionChosenHandler(int actionKey); // Modify event to pass an action key
-    public static event ActionChosenHandler OnActionChosen;
+    // Reference to the BattleController
+    public BattleController battleController;
 
     private void Start()
     {
@@ -16,6 +16,8 @@ public class PlayerMenu : MonoBehaviour
         attackButton = GameObject.Find("Attack").GetComponent<Button>();
         healButton = GameObject.Find("Heal").GetComponent<Button>();
         runButton = GameObject.Find("Run").GetComponent<Button>();
+
+        battleController = GameObject.Find("BattleController").GetComponent<BattleController>();;
 
         // Add listeners to the buttons
         attackButton.onClick.AddListener(() => OnAttackButton());
@@ -25,25 +27,19 @@ public class PlayerMenu : MonoBehaviour
 
     public void OnAttackButton()
     {
-        Debug.Log("Player chose to attack!");
-
-        // Notify listeners (BattleController) and pass action key '0' for attack
-        OnActionChosen?.Invoke(0); // '0' represents attack
+        // Debug.Log("Attack pressed");
+        battleController.ActionChosen(0); // '0' represents attack
     }
 
     public void OnHealButton()
     {
-        Debug.Log("Player chose to heal!");
-
-        // Notify listeners and pass action key '1' for heal
-        OnActionChosen?.Invoke(1); // '1' represents heal
+        //Debug.Log("heal pressed");
+        battleController.ActionChosen(1); // '1' represents heal
     }
 
     public void OnRunButton()
     {
-        Debug.Log("Player chose to run!");
-
-        // Notify listeners and pass action key '2' for run
-        OnActionChosen?.Invoke(2); // '2' represents run
+        //Debug.Log("run pressed");
+        battleController.ActionChosen(2); // '2' represents run
     }
 }

@@ -23,21 +23,9 @@ public class BattleController : MonoBehaviour
     #endregion
 
     #region methods
-    
-    private void OnEnable()
-    {
-        // Event from PlayerMenu, subscribe to event
-        PlayerMenu.OnActionChosen += HandleActionChosen;
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe to prevent memory leaks
-        PlayerMenu.OnActionChosen -= HandleActionChosen;
-    }
 
     // Method to handle the action chosen event, receives the action key from PlayerMenu
-    private void HandleActionChosen(int actionKey)
+    public void ActionChosen(int actionKey)
     {
         currentActionKey = actionKey;
         actionChosen = true; // Set the flag to continue the coroutine
@@ -66,23 +54,12 @@ public class BattleController : MonoBehaviour
             // Process turns in order
             foreach (BattleEntity entity in readyEntities)
             {
-                Debug.Log(entity.characterName + " takes their turn!");
-
                 yield return StartCoroutine(TakeTurn(entity));
-
-                // Ensure turn completion
-                Debug.Log($"{entity.characterName} has finished their turn.");
-
                 entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
             }
-
-            // Clear the ready entities list for the next round
-            readyEntities.Clear();
-
-            Debug.Log("Finished an iteration, clearing queue");
         }
 
-        // End the battle and determine the outcome
+        // Unreachable
         EndBattle();
     }
 
@@ -139,21 +116,10 @@ public class BattleController : MonoBehaviour
 
     IEnumerator TakeTurn(BattleEntity entity)
     {
+        Debug.Log(entity.characterName + " takes their turn!");
         if (entity.isFriendly)
         {
-            // Unhide battle menu and wait for player action
-            battleMenu.SetActive(true);
-            actionChosen = false; // Reset action flag for player's turn
-            currentActionKey = -1; // Reset action key
-
-            // Wait for the player to choose an action
-            while (!actionChosen)
-            {
-                yield return null; // Pause until an action is chosen
-            }
-
-            // Hide battle menu after action is taken
-            battleMenu.SetActive(false);
+            yield return new WaitUntil(() => actionChosen == true);
 
             // Handle the chosen action based on the actionKey
             HandlePlayerAction(player);
@@ -164,12 +130,8 @@ public class BattleController : MonoBehaviour
             Debug.Log($"{entity.characterName} attacks!");
             player.TakeDamage(entity.attack); // Attack logic for enemies
         }
-
-        // Check if the entity has been defeated
-        if (entity.isDead)
-        {
-            RemoveEntityFromBattle(entity);
-        }
+        Debug.Log(entity.characterName + " ends their turn!");
+        yield return new WaitForSeconds(3);
     }
 
     // Method to handle player action based on the action key
@@ -178,17 +140,15 @@ public class BattleController : MonoBehaviour
         switch (currentActionKey)
         {
             case 0: // Attack
-                Debug.Log("Player attacks!");
-                enemy.TakeDamage(entity.attack); 
+                enemy.TakeDamage(entity.attack);
+                checkDeath(enemy); 
                 break;
 
             case 1: // Heal
-                Debug.Log("Player heals!");
                 entity.Heal(entity.intelligence*2);
                 break;
 
             case 2: // Run
-                Debug.Log("Player runs away!");
                 SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
                 break;
 
@@ -196,37 +156,72 @@ public class BattleController : MonoBehaviour
                 Debug.LogError("Invalid action key!");
                 break;
         }
-        actionChosen = true;
+
+        resetAction();
+    }
+
+    void resetAction() 
+    {
+        actionChosen = false;
+        currentActionKey = -1;
     }
 
     // Remove an entity from the battle and update the count
     void RemoveEntityFromBattle(BattleEntity entity)
     {
         entities.Remove(entity);
+        countEntities(entity);
+        checkEndBattle();
+    }
 
+    //Checks if entity died
+    void checkDeath(BattleEntity entity)
+    {
+        if (entity.isDead)
+        {
+            RemoveEntityFromBattle(entity);
+        }
+    }
+
+    // Checks if the battle is won
+    void checkEndBattle() 
+    {
+        if (friendlies <= 0 || enemies <= 0) 
+        {
+            EndBattle();
+        }
+    }
+
+    void countEntities(BattleEntity entity) 
+    {
         if (entity.isFriendly)
-        {
             friendlies--;
-        }
         else
-        {
             enemies--;
-        }
-
-        Debug.Log($"{entity.characterName} was defeated. Remaining friendlies: {friendlies}, Remaining enemies: {enemies}");
+        Debug.Log($"Remaining friendlies: {friendlies}, Remaining enemies: {enemies}");
     }
 
     // End the battle and declare win/loss
     void EndBattle()
     {
-        if (enemies <= 0)
-        {
-            Debug.Log("You won the battle!");
-        }
-        else if (friendlies <= 0)
-        {
-            Debug.Log("You lost the battle...");
-        }
+        if (friendlies <= 0)
+            loseGame();
+        else
+            winGame();
+    }
+
+    void winGame() 
+    {
+        Debug.Log("You won the battle!");
+        // Win Screen Here to return to title
+        SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+    }
+    
+    void loseGame() 
+    {
+        Debug.Log("You lost the battle!");
+        // Lose Screen Here to return to title
+        SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
     }
     #endregion
 }

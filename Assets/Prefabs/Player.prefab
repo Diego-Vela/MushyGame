@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3660409412965808819}
   - component: {fileID: 3544012510938712051}
-  - component: {fileID: 6593489341899237758}
   - component: {fileID: 2393561153480351141}
   - component: {fileID: 2359676945705975134}
+  - component: {fileID: 764081683496499103}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 74162d2d7244d924e96da571280b8eb0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1a286803c47a6d499dc95a38d4ef245, type: 3}
   m_Color: {r: 1, g: 0.9792453, b: 0.9792453, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,23 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6593489341899237758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4365323077706932958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11797bf67a038de4ab4e1be3108f091d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDuration: 0.01
-  tileSize: 16
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!61 &2393561153480351141
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,18 +119,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.10482979}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0.48999998}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.59, y: 6.96}
+    oldSize: {x: 4.97, y: 5}
     newSize: {x: 4.97, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.87, y: 5.78}
+  m_Size: {x: 5.87, y: 6.786293}
   m_EdgeRadius: 0
 --- !u!50 &2359676945705975134
 Rigidbody2D:
@@ -176,3 +159,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &764081683496499103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365323077706932958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d092a55577b58c4086d0376b97105eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 0.01
+  tileSize: 16
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 64
