@@ -8,12 +8,32 @@ public class Player : MonoBehaviour
     public float moveDuration = 0.01f;  // Duration to move between tiles
     public float tileSize = 16f;       // Size of a tile in pixels
     public LayerMask collisionLayer;   // Set this to the layer that colliders are on
-    private bool isMoving = false;
+    private bool isMoving;
     private Vector2 input;
 
     #endregion
 
     #region movement
+
+    
+    void Start()
+    {
+        isMoving = false;
+        // Check if it's a new game or a continue game
+        if (DataPersistenceManager.Instance.IsNewGame())
+        {
+            Debug.Log("Starting a new game. No saved data loaded.");
+        }
+        else
+        {
+            PlayerData savedData = DataPersistenceManager.Instance.GetPlayerData();
+
+            if (savedData != null)
+            {
+                loadPlayer();
+            }
+        }
+    }
 
     void Update()
     {
@@ -96,6 +116,7 @@ public class Player : MonoBehaviour
         position.z = data.position[2];
 
         transform.position = position;
+        Debug.Log("Player position loaded: " + transform.position);
     }
     
     #endregion

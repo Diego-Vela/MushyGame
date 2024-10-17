@@ -8,6 +8,10 @@ public class AmbientMusicManager : MonoBehaviour
     public AudioClip introClip;  // The intro audio clip
     public AudioClip loopClip;   // The loopable audio clip
     private AudioSource audioSource;  // The AudioSource component
+    public AudioClip victoryClip; // Reference to the new AudioClip you want to play
+    public AudioClip loseClip;
+
+    private Coroutine introCoroutine; // Reference to the running coroutine
 
     private void Awake()
     {
@@ -29,12 +33,26 @@ public class AmbientMusicManager : MonoBehaviour
             audioSource.Play();
 
             // Schedule the loop clip to play after the intro finishes
-            StartCoroutine(PlayLoopAfterIntro(introClip.length));
+            introCoroutine = StartCoroutine(PlayLoopAfterIntro(introClip.length));
         }
         else
         {
             Debug.LogError("Intro or Loop clip is missing! Please assign the audio clips.");
         }
+    }
+
+    // Method to change the current audio clip
+    public void ChangeMusicClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    public void PlayVictory()
+    {
+        StopCoroutine(introCoroutine);
+        ChangeMusicClip(victoryClip); // Pass the new clip
     }
 
     // Coroutine to handle transitioning from intro to loop
@@ -44,8 +62,12 @@ public class AmbientMusicManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Switch to the loopable clip and set it to loop
-        audioSource.clip = loopClip;
-        audioSource.loop = true;
-        audioSource.Play();
+        ChangeMusicClip(loopClip);
+    }
+
+    public void PlayLoss()
+    {
+        StopCoroutine(introCoroutine);
+        ChangeMusicClip(loseClip); // Pass the new clip
     }
 }

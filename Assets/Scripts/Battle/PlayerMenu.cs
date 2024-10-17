@@ -17,8 +17,6 @@ public class PlayerMenu : MonoBehaviour
         healButton = GameObject.Find("Heal").GetComponent<Button>();
         runButton = GameObject.Find("Run").GetComponent<Button>();
 
-        battleController = GameObject.Find("BattleController").GetComponent<BattleController>();;
-
         // Add listeners to the buttons
         attackButton.onClick.AddListener(() => OnAttackButton());
         healButton.onClick.AddListener(() => OnHealButton());

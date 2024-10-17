@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem 
 {
+
     public static void savePlayer (Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -33,6 +34,22 @@ public static class SaveSystem
         {
             Debug.LogError("Save file not found in " + path);
             return null;
+        }
+    }
+
+    public static bool HasSavedData()
+    {
+        string path = Application.persistentDataPath + "/player.mush";
+        return File.Exists(path); // Check if the file exists
+    }
+
+    public static void DeleteSaveData()
+    {
+        string path = Application.persistentDataPath + "/player.mush";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("Save file deleted.");
         }
     }
 }

@@ -9,6 +9,7 @@ public class BattleInteraction : NPCInteraction
     // Override the InteractWithNPC method to add battle interaction
     protected override void InteractWithNPC()
     {
+        prepareDialogue();
         if (dialoguePanel.activeInHierarchy)
         {
             // Show the next dialogue line, or load battle if it's the last line

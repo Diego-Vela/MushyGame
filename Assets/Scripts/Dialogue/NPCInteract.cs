@@ -1,28 +1,30 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCInteraction : MonoBehaviour
 {
     public GameObject dialoguePanel; // The dialogue UI panel
+    public GameObject npcObject; // Set the parent GameObject (the NPC object)
+    public GameObject interactMarker; // Show sign that says interaction
     public DialogueData npcDialogue; // Object containing dialogue data for NPC
+    public Texture image; // Reference to set sprite to dialogue
+    public RawImage setActor; // Reference to Actor 2 to set image
     private bool isPlayerInRange; // To check if player is in the interaction zone
     public int currentDialogueIndex = 0; // Track which dialogue line we're on
-    public LayerMask interactionLayer; // Layer for InteractionZone
     public bool isCompanion;
-    public GameObject npcObject; // Set the parent GameObject (the NPC object)
+    
 
     void Start()
     {
-        // Ensure the dialogue panel is hidden at the start
-        if (dialoguePanel != null)
-        {
-            dialoguePanel.SetActive(false);
-        }
+        dialoguePanel.SetActive(false);
+        interactMarker.SetActive(false);
     }
 
     void Update()
     {
+        
         // Check for interaction input (Space key) and if player is in range
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
         {
             InteractWithNPC();
         }
@@ -31,6 +33,7 @@ public class NPCInteraction : MonoBehaviour
     // Mark this method as virtual to allow overriding in subclasses
     protected virtual void InteractWithNPC()
     {
+        prepareDialogue();
         if (dialoguePanel.activeInHierarchy)
         {
             // Show the next dialogue line, or close the dialogue if it's the last line
@@ -78,6 +81,7 @@ public class NPCInteraction : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("Player is in an InteractionZone");
+            interactMarker.SetActive(true);
             isPlayerInRange = true;  // Player is now in the interaction zone
         }
     }
@@ -88,6 +92,7 @@ public class NPCInteraction : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("Player left an InteractionZone");
+            interactMarker.SetActive(false);
             isPlayerInRange = false;  // Player is no longer in the interaction zone
             dialoguePanel.SetActive(false);  // Hide the dialogue panel if the player walks away
             currentDialogueIndex = 0;        // Reset dialogue index when player leaves
@@ -100,5 +105,11 @@ public class NPCInteraction : MonoBehaviour
         npcObject.SetActive(false);
         // Debug Statement
         Debug.Log("Parent NPC has been deactivated.");
+    }
+
+    public void prepareDialogue()
+    {
+        setActor.texture = image;
+        interactMarker.SetActive(false);
     }
 }

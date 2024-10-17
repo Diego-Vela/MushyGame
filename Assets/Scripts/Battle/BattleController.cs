@@ -7,16 +7,20 @@ using UnityEngine.SceneManagement;
 public class BattleController : MonoBehaviour
 {
     #region variables
-    public List<BattleEntity> entities = new List<BattleEntity>(); // List of all entities in battle
     private const int speedThreshold = 10000; // Threshold for turn
     private bool actionChosen = false; // Flag to indicate if a player action was chosen
+    private int currentActionKey = -1; // Stores the action key (0 for attack, 1 for heal, 2 for run)
 
     // Counters for friendlies and enemies
     private int friendlies = 0;
     private int enemies = 0;
 
+    public List<BattleEntity> entities = new List<BattleEntity>(); // List of all entities in battle
     public GameObject battleMenu; // UI for player input
-    private int currentActionKey = -1; // Stores the action key (0 for attack, 1 for heal, 2 for run)
+    public GameObject winMenu; // UI for winMenu
+    public GameObject loseMenu; // UI for loseMenu
+    public GameObject actions; // Reference to turn off buttons when not player turn
+    public AmbientMusicManager musicManager; // Reference to the music manager
     public BattleEntity enemy; // Reference to the target 
     public BattleEntity player; // Reference to player
 
@@ -33,6 +37,9 @@ public class BattleController : MonoBehaviour
 
     void Start()
     {
+        winMenu.SetActive(false);
+        actions.SetActive(false);
+
         // Find and add all BattleEntity components in the scene to the list
         entities.AddRange(FindObjectsOfType<BattleEntity>());
 
@@ -58,9 +65,6 @@ public class BattleController : MonoBehaviour
                 entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
             }
         }
-
-        // Unreachable
-        EndBattle();
     }
 
     // Initialize the battle and count the entities
@@ -84,7 +88,7 @@ public class BattleController : MonoBehaviour
         Debug.Log($"Battle initialized with {friendlies} friendlies and {enemies} enemies. Total: {friendlies+enemies}");
     }
 
-    // Get a list of entities that are ready to take their turn (speed exceeds threshold)
+    // Get a list of entities that are ready to take their turn
     List<BattleEntity> GetReadyEntities()
     {
         List<BattleEntity> readyEntities = new List<BattleEntity>();
@@ -119,8 +123,11 @@ public class BattleController : MonoBehaviour
         Debug.Log(entity.characterName + " takes their turn!");
         if (entity.isFriendly)
         {
+            actions.SetActive(true);
+            entity.WaitForAction();
             yield return new WaitUntil(() => actionChosen == true);
-
+            entity.EndAction();
+            actions.SetActive(false);
             // Handle the chosen action based on the actionKey
             HandlePlayerAction(player);
         }
@@ -129,9 +136,11 @@ public class BattleController : MonoBehaviour
             // Enemy attacks automatically
             Debug.Log($"{entity.characterName} attacks!");
             player.TakeDamage(entity.attack); // Attack logic for enemies
+            checkDeath(player);
         }
         Debug.Log(entity.characterName + " ends their turn!");
-        yield return new WaitForSeconds(3);
+        // Wait for 1 second in between turns
+        yield return new WaitForSeconds(1);
     }
 
     // Method to handle player action based on the action key
@@ -149,7 +158,7 @@ public class BattleController : MonoBehaviour
                 break;
 
             case 2: // Run
-                SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+                EndBattle();
                 break;
 
             default:
@@ -204,7 +213,7 @@ public class BattleController : MonoBehaviour
     // End the battle and declare win/loss
     void EndBattle()
     {
-        if (friendlies <= 0)
+        if (enemies > 0)
             loseGame();
         else
             winGame();
@@ -213,15 +222,18 @@ public class BattleController : MonoBehaviour
     void winGame() 
     {
         Debug.Log("You won the battle!");
-        // Win Screen Here to return to title
-        SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+        winMenu.SetActive(true);
+        musicManager.PlayVictory();
+        Time.timeScale = 0f;
     }
     
     void loseGame() 
     {
         Debug.Log("You lost the battle!");
         // Lose Screen Here to return to title
-        SceneManager.LoadScene("HomeTown"); // Load the HomeTown scene
+        loseMenu.SetActive(true);
+        musicManager.PlayLoss();
+        Time.timeScale = 0f;
     }
     #endregion
 }

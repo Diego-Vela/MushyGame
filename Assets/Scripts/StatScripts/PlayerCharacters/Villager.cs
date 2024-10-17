@@ -8,10 +8,10 @@ public class Villager : Stats
     {
         // Set default values for a villager
         baseHP = 100; // Base at 100
-        baseAttack = 20; // Base at 5
+        baseAttack = 8; // Base at 5
         baseDexterity = 10; // Base at 5
-        baseIntelligence = 15; // Base at 5
-        baseSpeed = 92; // Base at 100
+        baseIntelligence = 10; // Base at 5
+        baseSpeed = 120; // Base at 100
 
         level = 1;
         friend = true;

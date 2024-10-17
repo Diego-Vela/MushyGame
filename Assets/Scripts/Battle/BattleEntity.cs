@@ -17,12 +17,13 @@ public class BattleEntity : MonoBehaviour
     public bool isFriendly; // Bool that checks if character is friendly
 
     private Slider healthSlider; // Health Slider of entity
+    private Animator animator; // Animation
 
     void Start()
     {
         initializeStats();
         initializeHealthSlider();
-
+        initializeAnimation();
     }
 
     // Method to initialize character stats
@@ -77,6 +78,12 @@ public class BattleEntity : MonoBehaviour
         }
     }
     
+    private void initializeAnimation()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("isTurn", false);
+    }
+    
     // Method to deal damage to the character
     public void TakeDamage(int damage)
     {
@@ -123,5 +130,27 @@ public class BattleEntity : MonoBehaviour
             healthSlider.value = (float)currentHP/hp;
             Debug.Log($"Health value of {characterName} at {healthSlider.value}");
         }
+    }
+
+    public void WaitForAction()
+    {
+        animator.SetBool("isTurn", true);
+        animator.Play("PlayerTurn");
+    }
+    
+    public void EndAction()
+    {
+        animator.SetBool("isTurn", false);
+        animator.Play("Empty");
+    }
+
+    public void FriendlyAttack()
+    {
+        animator.Play("PlayerAttack");
+    }
+
+    public void EnemyAttack()
+    {
+        animator.Play("DemonSlimeAttack");
     }
 }
