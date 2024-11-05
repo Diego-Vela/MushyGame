@@ -11,11 +11,11 @@ public class Player : MonoBehaviour
     private bool isMoving;
     private Vector2 input;
 
+    public Animator animator;
+
     #endregion
 
-    #region movement
-
-    
+    #region unity
     void Start()
     {
         isMoving = false;
@@ -39,15 +39,23 @@ public class Player : MonoBehaviour
     {
         if (!isMoving)
         {
-            // Get input from arrow keys (including diagonal movement)
-            input.x = Input.GetAxisRaw("Horizontal");  // 1 for right, -1 for left
-            input.y = Input.GetAxisRaw("Vertical");    // 1 for up, -1 for down
+            handleMovement();
+        }
 
-            // Allow diagonal movement
-            if (input != Vector2.zero)
-            {
-                StartCoroutine(MovePlayer());
-            }
+        handleAnimation();
+    }
+    #endregion
+
+    #region movement
+    private void handleMovement() {
+        // Get input from arrow keys (including diagonal movement)
+        input.x = Input.GetAxisRaw("Horizontal");  // 1 for right, -1 for left
+        input.y = Input.GetAxisRaw("Vertical");    // 1 for up, -1 for down
+
+        // Allow diagonal movement
+        if (input != Vector2.zero)
+        {
+            StartCoroutine(MovePlayer());
         }
     }
 
@@ -96,7 +104,14 @@ public class Player : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(targetPosition, 0.5f, collisionLayer);
         return hit != null;
     }
+    #endregion
 
+    #region animation
+    private void handleAnimation() {
+        animator.SetFloat("Horizontal", input.x);
+        animator.SetFloat("Vertical", input.y);
+        animator.SetFloat("Speed", input.sqrMagnitude);
+    }
     #endregion
 
     #region save

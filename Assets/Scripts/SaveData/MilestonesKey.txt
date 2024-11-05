@@ -1,0 +1,20 @@
+Key for milestones and npcs. 
+
+Milestones(0 for cleared, 1 for uncleared):
+
+[0] Water Slime Defeated
+[1] Earth Slime Defeated
+[2] Demon Slime Defeated
+
+NPCs(index is the npc ID):
+
+[0] Player
+[1] Charlotte
+[2] DemonSlime: Himothy
+[3] WaterSlime: NewportBeach
+[4] EarthSlime: Rock the Dwayne Johnson
+
+
+
+
+

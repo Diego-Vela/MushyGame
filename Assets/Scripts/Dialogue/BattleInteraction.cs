@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class BattleInteraction : NPCInteraction
 {
-    // Name of the battle scene
-    public string battleSceneName = "Battle"; 
 
     // Override the InteractWithNPC method to add battle interaction
     protected override void InteractWithNPC()

@@ -11,6 +11,7 @@ TagManager:
   - BattleController
   - Actor1Dialogue
   - Actor2Dialogue
+  - InteractMarker
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - Mass
   - InteractionZone
-  - 
+  - Ground
   - 
   - 
   - 
@@ -47,4 +48,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2951142507
+    locked: 0
+  - name: Ground2
+    uniqueID: 3484603287
+    locked: 0
+  - name: Objects
+    uniqueID: 2463005669
+    locked: 0
+  - name: Player
+    uniqueID: 4281531431
+    locked: 0
+  - name: Structure
+    uniqueID: 2336688235
+    locked: 0
+  - name: Structure2
+    uniqueID: 1856583743
+    locked: 0
+  - name: NPC
+    uniqueID: 2777979461
     locked: 0
