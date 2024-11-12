@@ -1,46 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleEntity : MonoBehaviour
-{
-    public Stats character;    
+{   
     // Character stats
     public string characterName; // Holds character name
-    public int hp; // Maximum health points
-    public int currentHP;
-    public int attack; // Attack power
-    public int dexterity; // Dexterity
-    public int intelligence; // Intelligence (affects magic attack and healing)
-    public int speed; // Speed (affects turn order in combat)
-    public int currentSpeed; // Holds the current speed count
+    public float hp; // Maximum health points
+    public float currentHP;
+    public float attack; // Attack power
+    public float dexterity; // Dexterity
+    public float intelligence; // Intelligence (affects magic attack and healing)
+    public float speed; // Speed (affects turn order in combat)
+    public float currentSpeed; // Holds the current speed count
     public bool isDead; // Bool that checks if character is dead 
+    public GameObject HealthObject;
     public bool isFriendly; // Bool that checks if character is friendly
 
     private Slider healthSlider; // Health Slider of entity
     private Animator animator; // Animation
 
-    void Start()
+    public void CreateEntity(Stats character)
     {
-        initializeStats();
-        initializeHealthSlider();
-        initializeAnimation();
+        InitializeStats(character);
+        InitializeHealthSlider();
+        InitializeAnimation();
     }
 
     // Method to initialize character stats
-    private void initializeStats() {
-        
-        // Get Stats component attached to this GameObject
-        character = GetComponent<Stats>();
+    private void InitializeStats(Stats character) {
         // Check if for errors
         if (character != null)
         {
             // Assign stats to BattleEntity stats
             characterName = character.characterName;
-            hp = character.baseHP;
-            attack = character.baseAttack;
-            dexterity = character.baseDexterity;
-            intelligence = character.baseIntelligence;
-            speed = character.baseSpeed;
+            hp = character.hp;
+            attack = character.attack;
+            dexterity = character.dexterity;
+            intelligence = character.intelligence;
+            speed = character.speed;
             // Initialize current values
             currentHP = hp;
             currentSpeed = 0;
@@ -51,41 +49,43 @@ public class BattleEntity : MonoBehaviour
             else 
                 isDead = true;
             Debug.Log(characterName + " is now a battle entity");
+            // Image
+            GetComponent<RawImage>().texture = character.image;
         }
         else
             Debug.LogError("Stats component not found on this GameObject.");
     }
 
     //Method to set HealthSlider
-    private void initializeHealthSlider() {
-        if (isFriendly)
+    private void InitializeHealthSlider() 
+    {
+        if (HealthObject != null) 
         {
-            GameObject HealthObject = GameObject.FindWithTag("Health");
-            if (HealthObject != null)
-
-                healthSlider = HealthObject.GetComponent<Slider>();
-            else
-                Debug.LogError("Health GameObject not found or does not have a Slider!");
+            healthSlider = HealthObject.GetComponent<Slider>();
+            if (healthSlider != null)
+                Debug.Log("HealthSlider not succeswsful");
         }
-        else 
-        {
-            GameObject bossHealthObject = GameObject.FindWithTag("EnemyBossHealth");
-            if (bossHealthObject != null)
+        else
+            Debug.LogError("Health GameObject not found or does not have a Slider!");
 
-                healthSlider = bossHealthObject.GetComponent<Slider>();
-            else
-                Debug.LogError("EnemyBossHealth GameObject not found or does not have a Slider!");
+        if (!isFriendly)
+        {
+            SetUpHealthName();
         }
     }
     
-    private void initializeAnimation()
+    private void InitializeAnimation()
     {
-        animator = GetComponent<Animator>();
-        animator.SetBool("isTurn", false);
+        if (isFriendly)
+        {
+            animator = GetComponent<Animator>();
+            animator.SetBool("isTurn", false);
+        }
+
     }
     
     // Method to deal damage to the character
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHP -= damage;
         if (currentHP < 0)
@@ -99,21 +99,21 @@ public class BattleEntity : MonoBehaviour
     }
 
     // Method to heal the character
-    public void Heal(int healAmount)
+    public void Heal(float healAmount)
     {
         currentHP += healAmount;
         if (currentHP > hp)
         {
             currentHP = hp;
         }
-        Debug.Log(characterName + " healed by " + healAmount + ". Current HP: " + currentHP);
+        //Debug.Log(characterName + " healed by " + healAmount + ". Current HP: " + currentHP);
         UpdateHealthBar();
     }
 
     // Private method called when HP reaches zero
     private void Die()
     {
-        Debug.Log(characterName + " has died.");
+        // Debug.Log(characterName + " has died.");
         isDead = true;
     }
 
@@ -125,10 +125,11 @@ public class BattleEntity : MonoBehaviour
     //Private method to update health bar
     void UpdateHealthBar()
     {
+        //Debug.Log("Trying to update health");
         if(healthSlider != null)
         {
             healthSlider.value = (float)currentHP/hp;
-            Debug.Log($"Health value of {characterName} at {healthSlider.value}");
+            Debug.Log($"Health value of {characterName} at {currentHP}");
         }
     }
 
@@ -152,5 +153,14 @@ public class BattleEntity : MonoBehaviour
     public void EnemyAttack()
     {
         animator.Play("DemonSlimeAttack");
+    }
+
+    private void SetUpHealthName()
+    {
+        TextMeshProUGUI childText = GameObject.FindGameObjectWithTag("EnemyBossHealth").GetComponent<TextMeshProUGUI>();
+        if (childText == null)
+            Debug.Log("Not found");
+        
+        childText.text = characterName;
     }
 }

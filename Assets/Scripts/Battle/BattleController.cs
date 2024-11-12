@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 
 public class BattleController : MonoBehaviour
 {
@@ -16,13 +16,15 @@ public class BattleController : MonoBehaviour
     private int enemies = 0;
 
     public List<BattleEntity> entities = new List<BattleEntity>(); // List of all entities in battle
+    public List<BattleEntity> party = new List<BattleEntity>(); // List of all allies for targeting purposes
+
     public GameObject battleMenu; // UI for player input
-    public GameObject winMenu; // UI for winMenu
     public GameObject loseMenu; // UI for loseMenu
     public GameObject actions; // Reference to turn off buttons when not player turn
+    private SceneTransitioner sceneTransitioner; // return to previous scene.
     public AmbientMusicManager musicManager; // Reference to the music manager
     public BattleEntity enemy; // Reference to the target 
-    public BattleEntity player; // Reference to player
+    public EventTextBoxController log; // Reference to text box
 
     #endregion
 
@@ -35,36 +37,20 @@ public class BattleController : MonoBehaviour
         actionChosen = true; // Set the flag to continue the coroutine
     }
 
-    void Start()
+    private void Start()
     {
-        winMenu.SetActive(false);
+        // Get the prebattle position
+        sceneTransitioner = GameObject.FindGameObjectWithTag("SceneTransitioner").GetComponent<SceneTransitioner>();
+
+        // winMenu.SetActive(false);
         actions.SetActive(false);
 
         // Find and add all BattleEntity components in the scene to the list
         entities.AddRange(FindObjectsOfType<BattleEntity>());
+        party.AddRange(FindObjectsOfType<BattleEntity>().Where(member => member.isFriendly == true));
 
         InitializeBattle();
         StartCoroutine(BeginBattle());
-    }
-
-    IEnumerator BeginBattle()
-    {
-        // Continue battle while there are still friendlies and enemies
-        while (friendlies > 0 && enemies > 0)
-        {
-            // Calculate speed and find ready entities
-            List<BattleEntity> readyEntities = GetReadyEntities();
-
-            // Sort the ready entities by overflow
-            SortEntitiesByOverflow(readyEntities);
-
-            // Process turns in order
-            foreach (BattleEntity entity in readyEntities)
-            {
-                yield return StartCoroutine(TakeTurn(entity));
-                entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
-            }
-        }
     }
 
     // Initialize the battle and count the entities
@@ -86,6 +72,26 @@ public class BattleController : MonoBehaviour
         }
 
         Debug.Log($"Battle initialized with {friendlies} friendlies and {enemies} enemies. Total: {friendlies+enemies}");
+    }
+
+    IEnumerator BeginBattle()
+    {
+        // Continue battle while there are still friendlies and enemies
+        while (friendlies > 0 && enemies > 0)
+        {
+            // Calculate speed and find ready entities
+            List<BattleEntity> readyEntities = GetReadyEntities();
+
+            // Sort the ready entities by overflow
+            SortEntitiesByOverflow(readyEntities);
+
+            // Process turns in order
+            foreach (BattleEntity entity in readyEntities)
+            {
+                yield return StartCoroutine(TakeTurn(entity));
+                entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
+            }
+        }
     }
 
     // Get a list of entities that are ready to take their turn
@@ -120,45 +126,52 @@ public class BattleController : MonoBehaviour
 
     IEnumerator TakeTurn(BattleEntity entity)
     {
-        Debug.Log(entity.characterName + " takes their turn!");
         if (entity.isFriendly)
         {
+            yield return StartCoroutine(log.LogEvent
+                ($"{entity.characterName} moves."));
             actions.SetActive(true);
             entity.WaitForAction();
             yield return new WaitUntil(() => actionChosen == true);
             entity.EndAction();
             actions.SetActive(false);
             // Handle the chosen action based on the actionKey
-            HandlePlayerAction(player);
+            yield return StartCoroutine(HandlePlayerAction(entity));
         }
         else
         {
             // Enemy attacks automatically
-            Debug.Log($"{entity.characterName} attacks!");
-            player.TakeDamage(entity.attack); // Attack logic for enemies
-            checkDeath(player);
+            BattleEntity target = EntityAI(party);
+            yield return StartCoroutine(log.LogEvent(
+                $"{entity.characterName} attacks {target.characterName} for {entity.attack} damage!"));
+            target.TakeDamage(entity.attack);
+            yield return StartCoroutine(CheckDeath(target));
         }
-        Debug.Log(entity.characterName + " ends their turn!");
-        // Wait for 1 second in between turns
-        yield return new WaitForSeconds(1);
     }
 
     // Method to handle player action based on the action key
-    private void HandlePlayerAction(BattleEntity entity)
+    private IEnumerator HandlePlayerAction(BattleEntity entity)
     {
         switch (currentActionKey)
         {
             case 0: // Attack
+                yield return StartCoroutine(log.LogEvent(
+                    $"{entity.characterName} attacks {enemy.characterName} for {entity.attack} damage!"));
                 enemy.TakeDamage(entity.attack);
-                checkDeath(enemy); 
+                yield return StartCoroutine(CheckDeath(enemy)); 
                 break;
 
             case 1: // Heal
-                entity.Heal(entity.intelligence*2);
+                yield return StartCoroutine(log.LogEvent(
+                    $"{entity.characterName} heals for {entity.intelligence*3} hp!"));
+                entity.Heal(entity.intelligence*3);
                 break;
 
             case 2: // Run
-                EndBattle();
+                yield return StartCoroutine(log.LogEvent(
+                    $"{entity.characterName}'s party ran away..."));
+                sceneTransitioner.ReturnToSavedPosition(false);
+                yield return new WaitForSeconds(1);
                 break;
 
             default:
@@ -178,22 +191,23 @@ public class BattleController : MonoBehaviour
     // Remove an entity from the battle and update the count
     void RemoveEntityFromBattle(BattleEntity entity)
     {
-        entities.Remove(entity);
-        countEntities(entity);
-        checkEndBattle();
+        CountAndRemoveEntities(entity);
+        CheckEndBattle();
     }
 
     //Checks if entity died
-    void checkDeath(BattleEntity entity)
+    IEnumerator CheckDeath(BattleEntity entity)
     {
         if (entity.isDead)
         {
+            yield return StartCoroutine(log.LogEvent(
+                $"{entity.characterName} has fainted..."));
             RemoveEntityFromBattle(entity);
         }
     }
 
     // Checks if the battle is won
-    void checkEndBattle() 
+    void CheckEndBattle() 
     {
         if (friendlies <= 0 || enemies <= 0) 
         {
@@ -201,10 +215,15 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    void countEntities(BattleEntity entity) 
+    void CountAndRemoveEntities(BattleEntity entity) 
     {
+        entities.Remove(entity);
+
         if (entity.isFriendly)
+        {
             friendlies--;
+            party.Remove(entity);
+        }
         else
             enemies--;
         Debug.Log($"Remaining friendlies: {friendlies}, Remaining enemies: {enemies}");
@@ -213,27 +232,79 @@ public class BattleController : MonoBehaviour
     // End the battle and declare win/loss
     void EndBattle()
     {
+        StopAllCoroutines();
         if (enemies > 0)
-            loseGame();
+            StartCoroutine(loseGame());
         else
-            winGame();
+            StartCoroutine(winGame());
     }
 
-    void winGame() 
+    IEnumerator winGame() 
     {
         Debug.Log("You won the battle!");
-        winMenu.SetActive(true);
+        //winMenu.SetActive(true);
         musicManager.PlayVictory();
-        Time.timeScale = 0f;
+        yield return StartCoroutine(log.LogEvent($"You've won this battle!"));
+        sceneTransitioner.ReturnToSavedPosition(true);
     }
     
-    void loseGame() 
+    IEnumerator loseGame() 
     {
         Debug.Log("You lost the battle!");
         // Lose Screen Here to return to title
-        loseMenu.SetActive(true);
+        yield return StartCoroutine(log.LogEvent($"You've lost this battle!"));
         musicManager.PlayLoss();
-        Time.timeScale = 0f;
+        loseMenu.SetActive(true);
     }
     #endregion
+
+    public BattleEntity EntityAI(List<BattleEntity> targets)
+    {
+        return GetEnemyTarget(targets);
+    }
+
+    BattleEntity GetEnemyTarget(List<BattleEntity> targets)
+    {
+        if (Random.Range(0f, 1f) <= 0.55f)
+        {
+            return GetEntityWithLowestHp(targets);
+        }
+        else
+        {
+            return GetRandomEntity(targets);
+        }
+    }
+    
+    BattleEntity GetEntityWithLowestHp(List<BattleEntity> targets)
+    {
+        if (targets == null || targets.Count == 0)
+        {
+            Debug.LogWarning("Targets is not correct");
+            return null;
+        }
+
+        BattleEntity lowestHpEntity = targets[0];
+
+        foreach (BattleEntity target in targets)
+        {
+            if (target.currentHP < lowestHpEntity.currentHP)
+            {
+                lowestHpEntity = target;
+            }
+        }
+
+        return lowestHpEntity;
+    }
+
+    BattleEntity GetRandomEntity(List<BattleEntity> targets) 
+    {
+        if (targets == null || targets.Count == 0)
+        {
+            Debug.LogWarning("Targets list is empty or null");
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, targets.Count);
+        return targets[randomIndex];
+    }
 }

@@ -1,25 +1,58 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class Stats : MonoBehaviour
+public class Stats
 {
-    // Character stats
-    public string characterName; // Holds character name
-    public int baseHP; // Maximum health points
-    public int baseAttack; // Attack power
-    public int baseDexterity; // Dexterity still working on how this will work
-    public int baseIntelligence; // Intelligence (affects magic attack and healing)
-    public int baseSpeed; // Speed (affects turn order in combat)
-    public int level; // Level of characters
-    public bool friend; // Differentiate between enemies and companions
+    public string characterName;
+    public string characterClass;
+    public Texture2D image;
 
+    public float hp;
+    public float attack;
+    public float dexterity;
+    public float intelligence;
+    public float speed;
+    
+    public int level;
+    public bool friend;
 
-
-    // Method to print the character's stats
-    public void PrintStats()
+    // Method to print stats to the console
+    public virtual void PrintStats()
     {
-        Debug.Log("Stats for " + characterName + "\nHP: " + baseHP
-        + "\nAttack: " + baseAttack + "\nDexterity: " + baseDexterity 
-        + "\nIntelligence: " + baseIntelligence + "\nSpeed: " + baseSpeed 
-        + "\nLvel: " + level);
+        string stats = $"{characterName} Stats:\n" +
+                       $"HP: {hp}\n" +
+                       $"Attack: {attack}\n" +
+                       $"Dexterity: {dexterity}\n" +
+                       $"Intelligence: {intelligence}\n" +
+                       $"Speed: {speed}\n" +
+                       $"Level: {level}";
+
+        Debug.Log(stats);
+    }
+
+    // Virtual method to set the current instance's values to those of another Stats instance
+    public virtual void SetValuesFrom(Stats other)
+    {
+        if (other == null) return;
+
+        this.hp = other.hp;
+        this.attack = other.attack;
+        this.dexterity = other.dexterity;
+        this.intelligence = other.intelligence;
+        this.speed = other.speed;
+        this.level = other.level;
+
+        Debug.Log($"Stats from{other.characterName} copied.");
+    }
+
+    public virtual void SetName(string name)
+    {
+        characterName = name;
+    }
+
+    public virtual void SetImage(Texture2D image)
+    {
+        this.image = image;
     }
 }

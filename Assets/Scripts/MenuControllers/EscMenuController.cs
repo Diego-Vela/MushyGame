@@ -80,7 +80,7 @@ public class EscMenuController : MonoBehaviour
     }
     public void Save()
     {
-        player.savePlayer();
+        player.Save();
     }
 
     public void AudioSettings()

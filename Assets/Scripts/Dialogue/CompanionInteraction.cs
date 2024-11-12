@@ -1,18 +1,34 @@
 using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompanionInteraction : MonoBehaviour
+public class CompanionInteraction : NPCInteraction
 {
-    // Start is called before the first frame update
+    private Party party;
+    
     void Start()
     {
-        
+        party = GameObject.FindGameObjectWithTag("Party").GetComponent<Party>();
+        isCompanion = true;
+    }
+    
+    public override void deactivateNPC()
+    {        
+        // Deactivate NPC
+        npcObject.SetActive(false);
+        // Debug Statement
+        Debug.Log("Parent NPC has been deactivated.");
+        // Add to party
+        AddToParty(transform.parent.gameObject.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AddToParty(string name)
     {
-        
+        CharacterStats member = new CharacterStats(name, image);
+        member.PrintStats();
+
+        party.AddPartyMember(member);
     }
+
 }

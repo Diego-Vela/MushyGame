@@ -7,20 +7,27 @@ using UnityEngine.SceneManagement;
 public class TitleMenu : MonoBehaviour
 {
     public GameObject continueButton; // Reference to the Continue button
+    public GameObject deleteSaveButton; // Reference to the Delete Save Data button
+    public PartyCreator partyCreator;
 
     void Start()
     {
         Time.timeScale = 1f;
+    }
+
+    void Update()
+    {
         // Check if a save file exists; if not, disable the Continue button
         if (!SaveSystem.HasSavedData())
         {
             continueButton.GetComponent<Button>().interactable = false; // Disable button if no saved data
+            deleteSaveButton.GetComponent<Button>().interactable = false;
         }
     }
     
     public void Play()
     {
-        SaveSystem.DeleteSaveData();
+        partyCreator.AddCharacterByName("Protagonist");
         SceneManager.LoadScene("HomeTown");
     }
 
@@ -28,21 +35,20 @@ public class TitleMenu : MonoBehaviour
     {
         if (SaveSystem.HasSavedData())
         {
-            PlayerData data = SaveSystem.loadPlayer(); // Load the saved player data
+            SaveData data = SaveSystem.Load(); // Load the saved player data
             if (data != null)
             {
                 // Store the data temporarily for use in the next scene
-                DataPersistenceManager.Instance.SetPlayerData(data);
-
-                // Load the game scene (the scene with the player in it)
-                SceneManager.LoadScene("HomeTown"); // Replace "GameScene" with your actual scene name
+                SaveManager.Instance.SetUpData(data);
             }
         }
     }
-    public void GoToMainMenu()
+
+    public void DeleteSave()
     {
-        SceneManager.LoadScene("MainMenu");
+        SaveSystem.DeleteSaveData();
     }
+
     public void QuitGame()
     {
         Application.Quit();

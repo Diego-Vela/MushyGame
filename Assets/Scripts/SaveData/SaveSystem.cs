@@ -1,55 +1,55 @@
 using UnityEngine;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
-public static class SaveSystem 
-{
+public static class SaveSystem
+{   
+    #region save-file-path
+    private static string saveFilePath = Path.Combine(Application.persistentDataPath, "MushGameDemo.json");
+    #endregion
 
-    public static void savePlayer (Player player)
+    #region public-save-system-methods
+    // Function that saves the player data
+    public static void Save(Player player, GameState gamestate, Party party, string scene)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.mush";
-        FileStream stream = new FileStream(path, FileMode.Create);
+        // Create a new SaveData object with the current game data
+        SaveData data = new SaveData(player, gamestate, party, scene);
 
-        PlayerData data = new PlayerData(player);
+        // Convert the data to JSON format
+        string jsonData = JsonUtility.ToJson(data, true);
 
-        formatter.Serialize(stream, data);
-        stream.Close();
+        // Write the JSON to the file
+        File.WriteAllText(saveFilePath, jsonData);
+        Debug.Log("Game saved to " + saveFilePath);
     }
 
-    public static PlayerData loadPlayer ()
-    {
-        string path = Application.persistentDataPath + "/player.mush";
-        if(File.Exists(path))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+    // Function that takes the data in savedData and sets it to the other parameters
+    public static SaveData Load()
+    {   
+        string json = File.ReadAllText(saveFilePath);
+        SaveData loadedData = JsonUtility.FromJson<SaveData>(json);
+        Debug.Log("Game loaded from " + saveFilePath);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
-            stream.Close();
-
-            return data;
-
-        } else
-        {
-            Debug.LogError("Save file not found in " + path);
-            return null;
-        }
+        return loadedData;
     }
 
+    // Function that checks if SaveData exists
     public static bool HasSavedData()
     {
-        string path = Application.persistentDataPath + "/player.mush";
-        return File.Exists(path); // Check if the file exists
+        return File.Exists(saveFilePath);
     }
 
+    // Function that deletes SaveData
     public static void DeleteSaveData()
     {
-        string path = Application.persistentDataPath + "/player.mush";
-        if (File.Exists(path))
+        if (File.Exists(saveFilePath))
         {
-            File.Delete(path);
+            File.Delete(saveFilePath);
             Debug.Log("Save file deleted.");
         }
+        else
+        {
+            Debug.Log("No save file to delete.");
+        }
     }
+    #endregion
 }

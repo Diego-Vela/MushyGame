@@ -12,6 +12,13 @@ TagManager:
   - Actor1Dialogue
   - Actor2Dialogue
   - InteractMarker
+  - EnemyCreator
+  - GameState
+  - BattleResults
+  - StateManager
+  - SceneTransitioner
+  - Party
+  - PartyCreator
   layers:
   - Default
   - TransparentFX
@@ -52,21 +59,24 @@ TagManager:
   - name: Ground
     uniqueID: 2951142507
     locked: 0
-  - name: Ground2
+  - name: OnGround
     uniqueID: 3484603287
     locked: 0
-  - name: Objects
-    uniqueID: 2463005669
-    locked: 0
-  - name: Player
-    uniqueID: 4281531431
-    locked: 0
-  - name: Structure
+  - name: Level1
     uniqueID: 2336688235
     locked: 0
-  - name: Structure2
+  - name: Level2
     uniqueID: 1856583743
     locked: 0
-  - name: NPC
-    uniqueID: 2777979461
+  - name: Background
+    uniqueID: 3664803881
+    locked: 0
+  - name: Actors
+    uniqueID: 1183021409
+    locked: 0
+  - name: Actor+
+    uniqueID: 1654589157
+    locked: 0
+  - name: Panels
+    uniqueID: 4232250011
     locked: 0

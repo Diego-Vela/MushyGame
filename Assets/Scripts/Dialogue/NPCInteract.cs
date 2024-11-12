@@ -7,7 +7,7 @@ public class NPCInteraction : MonoBehaviour
     public GameObject npcObject; // Set the parent GameObject (the NPC object)
     public GameObject interactMarker; // Show sign that says interaction
     public DialogueData npcDialogue; // Object containing dialogue data for NPC
-    public Texture image; // Reference to set sprite to dialogue
+    public Texture2D image; // Reference to set sprite to dialogue
     public RawImage setActor; // Reference to Actor 2 to set image
     private bool isPlayerInRange; // To check if player is in the interaction zone
     public int currentDialogueIndex = 0; // Track which dialogue line we're on
@@ -61,7 +61,7 @@ public class NPCInteraction : MonoBehaviour
     }
 
     // Update the dialogue text in the dialogue panel
-    public void UpdateDialogueText(string newDialogue)
+    public virtual void UpdateDialogueText(string newDialogue)
     {
         var textComponent = dialoguePanel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
 
@@ -80,7 +80,7 @@ public class NPCInteraction : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("Player is in an InteractionZone");
+            //Debug.Log("Player is in an InteractionZone");
             interactMarker.SetActive(true);
             isPlayerInRange = true;  // Player is now in the interaction zone
         }
@@ -89,9 +89,12 @@ public class NPCInteraction : MonoBehaviour
     // Detect when the player leaves the trigger collider (interaction zone)
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (interactMarker == null || dialoguePanel == null)
+            return;
+        
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("Player left an InteractionZone");
+            //Debug.Log("Player left an InteractionZone");
             interactMarker.SetActive(false);
             isPlayerInRange = false;  // Player is no longer in the interaction zone
             dialoguePanel.SetActive(false);  // Hide the dialogue panel if the player walks away
@@ -99,12 +102,13 @@ public class NPCInteraction : MonoBehaviour
         }
     }
 
-    public void deactivateNPC()
+    public virtual void deactivateNPC()
     {        
         // Deactivate NPC
         npcObject.SetActive(false);
         // Debug Statement
         Debug.Log("Parent NPC has been deactivated.");
+        // Change map state
     }
 
     public void prepareDialogue()
