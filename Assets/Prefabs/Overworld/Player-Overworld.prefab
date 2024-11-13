@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d092a55577b58c4086d0376b97105eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDuration: 0.01
+  moveDuration: 0.001
   tileSize: 16
   collisionLayer:
     serializedVersion: 2
