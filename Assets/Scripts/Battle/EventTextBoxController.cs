@@ -7,10 +7,11 @@ public class EventTextBoxController : MonoBehaviour
 {
     public TextMeshProUGUI eventText; // Reference to the TextMeshPro component
     private float typingSpeed = .02f; // Time between each letter
+    public GameObject playerGuide; // Reference to the guide
 
-    //private void Start() {
-        //StartCoroutine(Test());        
-    //}
+    private void Start() {
+        playerGuide.SetActive(false);        
+    }
 
     public IEnumerator Test() {
             Debug.Log("HI");
@@ -24,6 +25,10 @@ public class EventTextBoxController : MonoBehaviour
         yield return StartCoroutine(TypeMessage(message));
     }
 
+    public IEnumerator LogActionEvent(string message)
+    {
+        yield return StartCoroutine(TypeActionMessage(message));
+    }
 
     private IEnumerator TypeMessage(string message)
     {
@@ -36,6 +41,20 @@ public class EventTextBoxController : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
         
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        playerGuide.SetActive(true);
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+        playerGuide.SetActive(false);
+    }
+
+        private IEnumerator TypeActionMessage(string message)
+    {
+        eventText.text = ""; // Clear text box
+
+        // Type each letter with a delay
+        foreach (char letter in message)
+        {
+            eventText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
     }
 }

@@ -9,10 +9,13 @@ public class TitleMenu : MonoBehaviour
     public GameObject continueButton; // Reference to the Continue button
     public GameObject deleteSaveButton; // Reference to the Delete Save Data button
     public PartyCreator partyCreator;
+    public GameObject mainPanel;
+    public GameObject controlPanel;
 
     void Start()
     {
         Time.timeScale = 1f;
+        ResetPanels();
     }
 
     void Update()
@@ -29,6 +32,16 @@ public class TitleMenu : MonoBehaviour
     {
         partyCreator.AddCharacterByName("Protagonist");
         SceneManager.LoadScene("HomeTown");
+    }
+
+    public void ReturnToMain()
+    {
+        ResetPanels();
+    }
+
+    public void Controls()
+    {
+        ShowControls();
     }
 
     public void Continue()
@@ -56,5 +69,17 @@ public class TitleMenu : MonoBehaviour
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
+    }
+
+    private void ResetPanels()
+    {
+        mainPanel.SetActive(true);
+        controlPanel.SetActive(false);
+    }
+
+    private void ShowControls()
+    {
+        mainPanel.SetActive(false);
+        controlPanel.SetActive(true);   
     }
 }

@@ -46,8 +46,8 @@ public class BattleController : MonoBehaviour
         actions.SetActive(false);
 
         // Find and add all BattleEntity components in the scene to the list
-        entities.AddRange(FindObjectsOfType<BattleEntity>());
-        party.AddRange(FindObjectsOfType<BattleEntity>().Where(member => member.isFriendly == true));
+        entities.AddRange(FindObjectsByType<BattleEntity>(FindObjectsSortMode.None));
+        party.AddRange(FindObjectsByType<BattleEntity>(FindObjectsSortMode.None).Where(member => member.isFriendly == true));
 
         InitializeBattle();
         StartCoroutine(BeginBattle());
@@ -76,6 +76,8 @@ public class BattleController : MonoBehaviour
 
     IEnumerator BeginBattle()
     {
+        yield return StartCoroutine(log.LogEvent
+            ($"Battle Begin!"));
         // Continue battle while there are still friendlies and enemies
         while (friendlies > 0 && enemies > 0)
         {
@@ -128,7 +130,7 @@ public class BattleController : MonoBehaviour
     {
         if (entity.isFriendly)
         {
-            yield return StartCoroutine(log.LogEvent
+            yield return StartCoroutine(log.LogActionEvent
                 ($"{entity.characterName} moves."));
             actions.SetActive(true);
             entity.WaitForAction();
