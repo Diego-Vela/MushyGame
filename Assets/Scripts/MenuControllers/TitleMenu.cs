@@ -8,14 +8,15 @@ public class TitleMenu : MonoBehaviour
 {
     public GameObject continueButton; // Reference to the Continue button
     public GameObject deleteSaveButton; // Reference to the Delete Save Data button
-    public PartyCreator partyCreator;
     public GameObject mainPanel;
     public GameObject controlPanel;
+    private PartyCreator partyCreator;
 
     void Start()
     {
         Time.timeScale = 1f;
         ResetPanels();
+        partyCreator = GameObject.FindGameObjectWithTag("PartyCreator").GetComponent<PartyCreator>();
     }
 
     void Update()

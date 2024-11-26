@@ -1845,11 +1845,11 @@ Transform:
   m_GameObject: {fileID: 1057772012}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.8102927, y: 5.118962, z: -0.026954472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1461317481}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057772014
 MonoBehaviour:
@@ -1866,6 +1866,7 @@ MonoBehaviour:
   gunther: {fileID: 2800000, guid: 12939ed00b0ffc045834ad7c13791757, type: 3}
   player: {fileID: 2800000, guid: a1a286803c47a6d499dc95a38d4ef245, type: 3}
   charlotte: {fileID: 2800000, guid: afa6d6e4bac60a940b3e46467f80f47d, type: 3}
+  daisy: {fileID: 2800000, guid: e96f5dd9563af654886110623078164a, type: 3}
 --- !u!1 &1092185862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charlotte: 0
   gunther: 0
+  daisy: 0
   waterDefeated: 0
   earthDefeated: 0
   demonDefeated: 0
@@ -2481,7 +2483,6 @@ Transform:
   m_Children:
   - {fileID: 1278048595}
   - {fileID: 1936626457}
-  - {fileID: 1057772013}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553160905
@@ -3592,6 +3593,7 @@ SceneRoots:
   - {fileID: 1262467388}
   - {fileID: 1857364226}
   - {fileID: 1422168565}
+  - {fileID: 1057772013}
   - {fileID: 974615917}
   - {fileID: 1411068642}
   - {fileID: 535786406}

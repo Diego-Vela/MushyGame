@@ -7,8 +7,6 @@ public class BattleResults : MonoBehaviour
     public static BattleResults instance;
 
     public string enemyName;
-    //public bool battleWon;
-    
     
     private void Awake()
     {

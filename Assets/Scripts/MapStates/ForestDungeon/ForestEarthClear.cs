@@ -18,5 +18,9 @@ public class ForestEarthClear : ForestBaseState
 
     public override void UpdateState(ForestStateManager forest)
     {
+        if (forest.waterDefeated)
+        {
+            forest.SwitchState(forest.demonFightState);
+        }
     }
 }

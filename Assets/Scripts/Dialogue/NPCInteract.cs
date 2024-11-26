@@ -11,13 +11,15 @@ public class NPCInteraction : MonoBehaviour
     public RawImage setActor; // Reference to Actor 2 to set image
     private bool isPlayerInRange; // To check if player is in the interaction zone
     public int currentDialogueIndex = 0; // Track which dialogue line we're on
-    public bool isCompanion;
+    protected bool isCompanion;
+    protected string characterName;
     
 
     void Start()
     {
         dialoguePanel.SetActive(false);
         interactMarker.SetActive(false);
+        characterName = transform.parent.gameObject.name;
     }
 
     void Update()

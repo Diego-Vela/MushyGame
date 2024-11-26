@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    public static GameState instance;
+    public static GameState Instance;
 
     // HomeTown
     public bool charlotte;
     public bool gunther;
+    public bool daisy;
     
     // Forest
     public bool waterDefeated;
@@ -18,9 +19,9 @@ public class GameState : MonoBehaviour
     
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

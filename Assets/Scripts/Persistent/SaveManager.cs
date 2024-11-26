@@ -51,6 +51,8 @@ public class SaveManager : MonoBehaviour
     {
         gamestate.charlotte = data.charlotte;
         gamestate.gunther = data.gunther;
+        gamestate.daisy = data.daisy;
+        
         gamestate.waterDefeated = data.waterDefeated;
         gamestate.earthDefeated = data.earthDefeated;
         gamestate.demonDefeated = data.demonDefeated;

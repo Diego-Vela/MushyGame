@@ -8,48 +8,29 @@ public class HometownStateManager : StateManager
     #region variables
 
     // State variables
-    HometownBaseState currentState;
-    public HometownEntry entryState = new HometownEntry();
-    public HometownNoCharlotte noCharlotteState = new HometownNoCharlotte();
-    public HometownNoGunther noGuntherState = new HometownNoGunther();
-    public HometownEmpty emptyState = new HometownEmpty();
+    //HometownBaseState currentState;
+    //public HometownEntry entryState = new HometownEntry();
+    //public HometownNoCharlotte noCharlotteState = new HometownNoCharlotte();
+    //public HometownNoGunther noGuntherState = new HometownNoGunther();
+    //public HometownEmpty emptyState = new HometownEmpty();
 
     // References to objects
     public GameObject charlotteNPC;
     public GameObject guntherNPC;
+    public GameObject daisyNPC;
 
     // Bools to characters are active
     public bool charlotte;
     public bool gunther;
+    public bool daisy;
     
     #endregion
     #region state-managers
     // Start is called before the first frame update
     void Start()
     {
-        currentState = entryState;
         GetCurrentState();
-        currentState.EnterState(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (charlotteNPC != null && !charlotteNPC.activeSelf && charlotte)
-        {
-            Despawn("Charlotte");
-        }
-        if (guntherNPC != null && !guntherNPC.activeSelf && gunther)
-        {
-            Despawn("Gunther");
-        }
-        currentState.UpdateState(this);
-    }
-
-    public void SwitchState(HometownBaseState state)
-    {
-        currentState = state;
-        state.EnterState(this);
+        SetCurrentState();
     }
 
     void GetCurrentState()
@@ -59,7 +40,15 @@ public class HometownStateManager : StateManager
         } else {
             charlotte = gamestate.charlotte;
             gunther = gamestate.gunther;
+            daisy = gamestate.gunther;
         }
+    }
+
+    void SetCurrentState()
+    {
+        charlotteNPC.SetActive(charlotte);
+        guntherNPC.SetActive(gunther);
+        daisyNPC.SetActive(daisy);
     }
 
     #endregion
@@ -75,6 +64,10 @@ public class HometownStateManager : StateManager
             case "Charlotte":
                 charlotte = false;
                 gamestate.charlotte = false;
+                break;
+            case "Daisy":
+                daisy = false;
+                gamestate.daisy = false;
                 break;
             default:
                 break;

@@ -62,8 +62,6 @@ public class BattleEntity : MonoBehaviour
         if (HealthObject != null) 
         {
             healthSlider = HealthObject.GetComponent<Slider>();
-            if (healthSlider != null)
-                Debug.Log("HealthSlider not succeswsful");
         }
         else
             Debug.LogError("Health GameObject not found or does not have a Slider!");

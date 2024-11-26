@@ -6,10 +6,16 @@ using UnityEngine;
 public class CompanionInteraction : NPCInteraction
 {
     private Party party;
+    private PartyCreator partyCreator;
+
+    public StateManager stateManager;
     
     void Start()
     {
         party = GameObject.FindGameObjectWithTag("Party").GetComponent<Party>();
+        partyCreator = GameObject.FindGameObjectWithTag("PartyCreator").GetComponent<PartyCreator>();
+
+        characterName = transform.parent.gameObject.name;
         isCompanion = true;
     }
     
@@ -17,15 +23,16 @@ public class CompanionInteraction : NPCInteraction
     {        
         // Deactivate NPC
         npcObject.SetActive(false);
+        stateManager.Despawn(characterName);
         // Debug Statement
-        Debug.Log("Parent NPC has been deactivated.");
+        Debug.Log($"{characterName} has been deactivated.");
         // Add to party
-        AddToParty(transform.parent.gameObject.name);
+        AddToParty();
     }
 
-    private void AddToParty(string name)
+    private void AddToParty()
     {
-        CharacterStats member = new CharacterStats(name, image);
+        CharacterStats member = new CharacterStats(characterName, image);
         member.PrintStats();
 
         party.AddPartyMember(member);

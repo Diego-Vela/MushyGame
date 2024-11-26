@@ -8,6 +8,7 @@ public class SaveData
     // GameState Data
     public bool charlotte;
     public bool gunther;
+    public bool daisy;
     public bool waterDefeated;
     public bool earthDefeated;
     public bool demonDefeated;
@@ -37,6 +38,7 @@ public class SaveData
         // Hometown state
         this.charlotte = gamestate.charlotte;
         this.gunther = gamestate.gunther;
+        this.daisy = gamestate.daisy;
 
         // Forest state
         this.waterDefeated = gamestate.waterDefeated;
