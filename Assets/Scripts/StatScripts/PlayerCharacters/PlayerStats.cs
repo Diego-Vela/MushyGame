@@ -1,25 +1,25 @@
 using UnityEngine;
 
-public class CharacterStats: Stats
+public class PlayerStats: CharacterStats
 {
     // Variables
     public float expMultiplier;
 
-    public CharacterStats() 
+    public PlayerStats() 
     {
         InitializeStats();
         Villager.ApplyMultipliers(this);
     }
 
-    public CharacterStats(string name, Texture2D image) 
+    public PlayerStats(string name, Texture2D image) 
     {
         InitializeStats(name, image);
         Villager.ApplyMultipliers(this);
     }
 
-    protected virtual void InitializeStats() 
+    protected override void InitializeStats() 
     {
-        characterName = "Villager";
+        characterName = "Protagonist";
         characterClass = "";
         hp = 100;
         attack = 10;
@@ -30,10 +30,10 @@ public class CharacterStats: Stats
         friend = true;
     }
 
-    protected virtual void InitializeStats(string name, Texture2D image) 
+    protected override void InitializeStats(string name, Texture2D image) 
     {
         characterName = name;
-        characterClass = "Protagonist";
+        characterClass = "";
 
         hp = 100;
         attack = 15;

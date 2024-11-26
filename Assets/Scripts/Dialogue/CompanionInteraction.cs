@@ -32,10 +32,7 @@ public class CompanionInteraction : NPCInteraction
 
     private void AddToParty()
     {
-        CharacterStats member = new CharacterStats(characterName, image);
-        member.PrintStats();
-
-        party.AddPartyMember(member);
+        partyCreator.AddCharacterByName(characterName);
     }
 
 }

@@ -36,13 +36,13 @@ public class PartyCreator : MonoBehaviour
         switch(name)
         {
             case "Gunther":
-                party.AddPartyMember(new CharacterStats(name, gunther));
+                party.AddPartyMember(new GuntherStats(name, gunther));
                 break;
             case "Charlotte":
-                party.AddPartyMember(new CharacterStats(name, charlotte));
+                party.AddPartyMember(new CharlotteStats(name, charlotte));
                 break;
             case "Daisy":
-                party.AddPartyMember(new CharacterStats(name, daisy));
+                party.AddPartyMember(new DaisyStats(name, daisy));
                 break;
             default:
                 party.AddPartyMember(new CharacterStats("Protagonist", player));

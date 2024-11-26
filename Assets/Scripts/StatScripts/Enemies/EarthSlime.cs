@@ -29,8 +29,8 @@ public class EarthSlime : Stats
         // Set the enemy-specific stats
         characterName = "Earth Slime: Rock the Dwayne Johnson";
         characterClass = "Slime Boss";
-        hp = 200;
-        attack = 35;
+        hp = 300;
+        attack = 60;
         speed = 70;
 
         level = 5;
