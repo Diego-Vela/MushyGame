@@ -1094,8 +1094,8 @@ RectTransform:
   - {fileID: 6098132737347860957}
   m_Father: {fileID: 4494735143021788929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.09, y: 0.85}
-  m_AnchorMax: {x: 0.15, y: 0.95}
+  m_AnchorMin: {x: 0.02, y: 0.85}
+  m_AnchorMax: {x: 0.08, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1180,7 +1180,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3760566510551489801}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5852568401817394550}
+        m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
+        m_MethodName: Back
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1656147365141086248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,7 +2343,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3310807955908722965}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -2614,13 +2626,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 5852568401817394550}
+        m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
+        m_MethodName: PartyMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3013,7 +3025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.1}
   m_AnchorMax: {x: 0.8, y: 0.3}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7343488641194023978
@@ -3065,6 +3077,7 @@ GameObject:
   - component: {fileID: 4494735143021788929}
   - component: {fileID: 1873010791784606642}
   - component: {fileID: 189119875589762019}
+  - component: {fileID: 2633050945576116414}
   m_Layer: 5
   m_Name: PartyMenu
   m_TagString: Untagged
@@ -3134,6 +3147,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2633050945576116414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939392313620605248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b672270bf9f32f242b4a0d8a49fa377b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 3760259160327136245}
+  - {fileID: 3484069137778143826}
+  - {fileID: 8061949417206278659}
+  - {fileID: 4684398585960715146}
 --- !u!1 &3161524571750895109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,7 +3412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.1}
   m_AnchorMax: {x: 0.8, y: 0.3}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9055477799672745149
@@ -3688,6 +3718,7 @@ GameObject:
   - component: {fileID: 2261227609833802503}
   - component: {fileID: 2839173064584530432}
   - component: {fileID: 498452104302674789}
+  - component: {fileID: 8677961773792873932}
   m_Layer: 5
   m_Name: Member2
   m_TagString: Untagged
@@ -3711,8 +3742,8 @@ RectTransform:
   - {fileID: 5202466066342112450}
   - {fileID: 500658318711558311}
   - {fileID: 258022567687132012}
-  - {fileID: 5883469303585061205}
   - {fileID: 6451486358790899531}
+  - {fileID: 5883469303585061205}
   - {fileID: 5505925363707994729}
   m_Father: {fileID: 4494735143021788929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3759,6 +3790,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8677961773792873932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3484069137778143826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4135aad70d224a9ba191f987ea231cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: {fileID: 269241662441642772}
+  characterLevel: {fileID: 5428032058637048208}
+  hpBarObject: {fileID: 7292938842333631675}
+  hpLabel: {fileID: 9072742590010194391}
+  expBarObject: {fileID: 4035507780460827841}
+  expLabel: {fileID: 5043394712939257381}
+  image: {fileID: 6291721427320145069}
 --- !u!1 &3521951473645361477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4254,6 +4304,7 @@ GameObject:
   - component: {fileID: 6348579788597765148}
   - component: {fileID: 4289015057726870134}
   - component: {fileID: 429595705845761890}
+  - component: {fileID: 2719731558416873351}
   m_Layer: 5
   m_Name: Member1
   m_TagString: Untagged
@@ -4277,8 +4328,8 @@ RectTransform:
   - {fileID: 3691313500997764721}
   - {fileID: 4907165930608328000}
   - {fileID: 4704218636254513198}
-  - {fileID: 3405288676732241961}
   - {fileID: 9168757122869752842}
+  - {fileID: 3405288676732241961}
   - {fileID: 2867557027459878526}
   m_Father: {fileID: 4494735143021788929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4325,6 +4376,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2719731558416873351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760259160327136245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4135aad70d224a9ba191f987ea231cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: {fileID: 587984417177177868}
+  characterLevel: {fileID: 1905896409009523127}
+  hpBarObject: {fileID: 1891796507093589134}
+  hpLabel: {fileID: 1619370586144084305}
+  expBarObject: {fileID: 2130768891499267442}
+  expLabel: {fileID: 9099967567543156240}
+  image: {fileID: 4451055128879984362}
 --- !u!1 &3884329896406407631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4735,7 +4805,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3310807955908722965}
+      - m_Target: {fileID: 5852568401817394550}
         m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
         m_MethodName: AudioSettings
         m_Mode: 1
@@ -5279,6 +5349,7 @@ GameObject:
   - component: {fileID: 3980023305809230900}
   - component: {fileID: 6900844827865725502}
   - component: {fileID: 8053583751766489936}
+  - component: {fileID: 3261028059056434804}
   m_Layer: 5
   m_Name: Member4
   m_TagString: Untagged
@@ -5302,8 +5373,8 @@ RectTransform:
   - {fileID: 2781298619694747679}
   - {fileID: 7102417313900834018}
   - {fileID: 7625769553251329868}
-  - {fileID: 4751511273302970030}
   - {fileID: 828310511671443339}
+  - {fileID: 4751511273302970030}
   - {fileID: 8411522439304280274}
   m_Father: {fileID: 4494735143021788929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5350,6 +5421,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3261028059056434804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684398585960715146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4135aad70d224a9ba191f987ea231cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: {fileID: 5416815320474691015}
+  characterLevel: {fileID: 3544119550056992282}
+  hpBarObject: {fileID: 6048300214165953627}
+  hpLabel: {fileID: 5285020208272005523}
+  expBarObject: {fileID: 2277037071834822624}
+  expLabel: {fileID: 4947843880258751820}
+  image: {fileID: 6779857812554970100}
 --- !u!1 &4717214080879829811
 GameObject:
   m_ObjectHideFlags: 0
@@ -5643,7 +5733,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3310807955908722965}
+      - m_Target: {fileID: 5852568401817394550}
         m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
         m_MethodName: ReturnToTitle
         m_Mode: 1
@@ -6020,7 +6110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6341786451897410787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6237,6 +6327,7 @@ GameObject:
   - component: {fileID: 8109975690654493388}
   - component: {fileID: 6033947432130094407}
   - component: {fileID: 8520371858462503118}
+  - component: {fileID: 5852568401817394550}
   m_Layer: 5
   m_Name: EscMenuPanel
   m_TagString: Untagged
@@ -6315,6 +6406,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5852568401817394550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829898980409813507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e21700f44f7534c977ba65e5ff1ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  escMenu: {fileID: 5581624501704145309}
+  buttons: {fileID: 3377636647368161607}
+  partyMenu: {fileID: 2939392313620605248}
+  volumeMenu: {fileID: 7136624583372285267}
+  volumeSlider: {fileID: 805893014622544279}
 --- !u!1 &5856714044810820955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7404,7 +7512,6 @@ GameObject:
   - component: {fileID: 6263691398637863381}
   - component: {fileID: 8854259711751571688}
   - component: {fileID: 8791992160898477237}
-  - component: {fileID: 3310807955908722965}
   m_Layer: 5
   m_Name: DefaultPanels
   m_TagString: Untagged
@@ -7498,24 +7605,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3310807955908722965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7429904937557542597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e21700f44f7534c977ba65e5ff1ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  escMenu: {fileID: 5829898980409813507}
-  buttons: {fileID: 3377636647368161607}
-  musicManager: {fileID: 0}
-  volumeMenu: {fileID: 7136624583372285267}
-  volumeSlider: {fileID: 805893014622544279}
-  player: {fileID: 0}
 --- !u!1 &7514934649839008664
 GameObject:
   m_ObjectHideFlags: 0
@@ -7987,7 +8076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3310807955908722965}
+      - m_Target: {fileID: 5852568401817394550}
         m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
         m_MethodName: Save
         m_Mode: 1
@@ -8792,6 +8881,7 @@ GameObject:
   - component: {fileID: 151265869719024119}
   - component: {fileID: 3340650178303608601}
   - component: {fileID: 8452564236869217460}
+  - component: {fileID: 3698847216327708496}
   m_Layer: 5
   m_Name: Member3
   m_TagString: Untagged
@@ -8815,8 +8905,8 @@ RectTransform:
   - {fileID: 8312973758603896784}
   - {fileID: 6499168408069445674}
   - {fileID: 7445807339248368940}
-  - {fileID: 6157624971915663174}
   - {fileID: 6833969251653825310}
+  - {fileID: 6157624971915663174}
   - {fileID: 7318336589670742594}
   m_Father: {fileID: 4494735143021788929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8863,6 +8953,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3698847216327708496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061949417206278659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4135aad70d224a9ba191f987ea231cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: {fileID: 427064728869178961}
+  characterLevel: {fileID: 352290861286414150}
+  hpBarObject: {fileID: 4345745637216795924}
+  hpLabel: {fileID: 5910133092204834678}
+  expBarObject: {fileID: 7326679121626995362}
+  expLabel: {fileID: 6665746997060945346}
+  image: {fileID: 553752711343162827}
 --- !u!1 &8063841343088885286
 GameObject:
   m_ObjectHideFlags: 0
@@ -8900,7 +9009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.1}
   m_AnchorMax: {x: 0.8, y: 0.3}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8430379067638838127
@@ -9753,7 +9862,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3310807955908722965}
+      - m_Target: {fileID: 5852568401817394550}
         m_TargetAssemblyTypeName: EscMenuController, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1

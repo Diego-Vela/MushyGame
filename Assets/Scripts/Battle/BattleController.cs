@@ -26,6 +26,8 @@ public class BattleController : MonoBehaviour
     public BattleEntity enemy; // Reference to the target 
     public EventTextBoxController log; // Reference to text box
 
+    private List<BattleEntity> readyEntities = new List<BattleEntity>();
+
     #endregion
 
     #region methods
@@ -82,7 +84,7 @@ public class BattleController : MonoBehaviour
         while (friendlies > 0 && enemies > 0)
         {
             // Calculate speed and find ready entities
-            List<BattleEntity> readyEntities = GetReadyEntities();
+            readyEntities = GetReadyEntities();
 
             // Sort the ready entities by overflow
             SortEntitiesByOverflow(readyEntities);
@@ -90,6 +92,9 @@ public class BattleController : MonoBehaviour
             // Process turns in order
             foreach (BattleEntity entity in readyEntities)
             {
+                if (entity.isDead) {
+                    continue;
+                } 
                 yield return StartCoroutine(TakeTurn(entity));
                 entity.currentSpeed -= speedThreshold; // Reset speed with overflow logic
             }
@@ -220,7 +225,6 @@ public class BattleController : MonoBehaviour
     void CountAndRemoveEntities(BattleEntity entity) 
     {
         entities.Remove(entity);
-
         if (entity.isFriendly)
         {
             friendlies--;

@@ -13,9 +13,8 @@ public class Stats
     public float dexterity;
     public float intelligence;
     public float speed;
-    
-    public int level;
     public bool friend;
+    public int level;
 
     // Method to print stats to the console
     public virtual void PrintStats()
@@ -29,21 +28,6 @@ public class Stats
                        $"Level: {level}";
 
         Debug.Log(stats);
-    }
-
-    // Virtual method to set the current instance's values to those of another Stats instance
-    public virtual void SetValuesFrom(Stats other)
-    {
-        if (other == null) return;
-
-        this.hp = other.hp;
-        this.attack = other.attack;
-        this.dexterity = other.dexterity;
-        this.intelligence = other.intelligence;
-        this.speed = other.speed;
-        this.level = other.level;
-
-        Debug.Log($"Stats from{other.characterName} copied.");
     }
 
     public virtual void SetName(string name)

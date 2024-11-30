@@ -44446,7 +44446,7 @@ GameObject:
   - component: {fileID: 604034081}
   m_Layer: 0
   m_Name: MusicManager
-  m_TagString: Untagged
+  m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58161,17 +58161,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6440507698776325987, guid: ea5093f9a8ca6dd4e83332bd2c384c24, type: 3}
   m_PrefabInstance: {fileID: 1194448815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1194448817 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 176500510007405705, guid: ea5093f9a8ca6dd4e83332bd2c384c24, type: 3}
-  m_PrefabInstance: {fileID: 1194448815}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d092a55577b58c4086d0376b97105eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1212935006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6348262094575524269, guid: 115c879596c56fb418c2e791cd88b5f7, type: 3}
@@ -59474,26 +59463,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1656147365141086248, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3310807955908722965, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1194448817}
-    - target: {fileID: 3310807955908722965, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
-      propertyPath: musicManager
-      value: 
-      objectReference: {fileID: 604034078}
-    - target: {fileID: 6135554862596192100, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6263691398637863381, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 7429904937557542597, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
       propertyPath: m_Name
       value: Panels

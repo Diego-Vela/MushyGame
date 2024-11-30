@@ -1,11 +1,9 @@
 using UnityEngine;
 
 #region Global Methods
-public static class CharacterClass
-{
+public static class CharacterClass {
     // Shared method to apply multipliers to a character's stats
-    public static void ApplyMultipliers(CharacterStats character, float hpMultiplier, float attackMultiplier, float dexterityMultiplier, float intelligenceMultiplier, float speedMultiplier, float expMultiplier, string className)
-    {
+    public static void ApplyMultipliers(CharacterStats character, float hpMultiplier, float attackMultiplier, float dexterityMultiplier, float intelligenceMultiplier, float speedMultiplier, float expMultiplier, string className) {
         character.characterClass = className;
         character.hp *= hpMultiplier;
         character.attack *= attackMultiplier;

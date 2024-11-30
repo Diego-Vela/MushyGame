@@ -9,9 +9,6 @@ TagManager:
   - EnemyBossHealth
   - Health
   - BattleController
-  - Actor1Dialogue
-  - Actor2Dialogue
-  - InteractMarker
   - EnemyCreator
   - GameState
   - BattleResults
@@ -19,6 +16,7 @@ TagManager:
   - SceneTransitioner
   - Party
   - PartyCreator
+  - MusicManager
   layers:
   - Default
   - TransparentFX

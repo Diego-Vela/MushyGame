@@ -15,7 +15,7 @@ public class AddPlayerToParty: MonoBehaviour
 
     private void AddToParty(string name)
     {
-        CharacterStats member = new CharacterStats(name, image);
+        CharacterStats member = new CharacterStats(image);
         member.PrintStats();
 
         party.AddPartyMember(member);

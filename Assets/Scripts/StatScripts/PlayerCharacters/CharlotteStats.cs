@@ -2,47 +2,35 @@ using UnityEngine;
 
 public class CharlotteStats: CharacterStats
 {
-    // Variables
-    public float expMultiplier;
-
     public CharlotteStats() 
     {
         InitializeStats();
-        Villager.ApplyMultipliers(this);
     }
 
-    public CharlotteStats(string name, Texture2D image) 
+    public CharlotteStats(Texture2D image) 
     {
-        InitializeStats(name, image);
-        Villager.ApplyMultipliers(this);
+        InitializeStats(image);
     }
 
-    protected override void InitializeStats() 
+    protected override void InitializeStats(Texture2D image) 
     {
         characterName = "Charlotte";
         characterClass = "";
-        hp = 100;
-        attack = 10;
-        dexterity = 5;
-        intelligence = 8;
-        speed = 100;
-        expMultiplier = 1;
-        friend = true;
-    }
 
-    protected override void InitializeStats(string name, Texture2D image) 
-    {
-        characterName = name;
-        characterClass = "";
+        this.hp = 100;
+        this.currentHp = this.hp;
 
-        hp = 100;
-        attack = 12;
-        dexterity = 5;
-        intelligence = 8;
-        speed = 135;
+        this.attack = 12;
+        this.dexterity = 5;
+        this.intelligence = 8;
+        this.speed = 135;
         
-        expMultiplier = 1;
-        friend = true;
+        this.level = 1;
+        this.expMultiplier = 1;
+        this.expToNextLevel = 10;
+        this.currentExp = 0;
+
+        this.friend = true;
     
         this.image = image;
     }
