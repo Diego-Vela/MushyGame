@@ -29,7 +29,9 @@ public class Party : MonoBehaviour
     {
         party.Add(member);
         Debug.Log($"Added {member.characterName} to party");
-        PrintParty();
+        
+        // Debug Function
+        //PrintParty();
     }
 
     public void PrintParty()

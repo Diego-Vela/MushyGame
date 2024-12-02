@@ -20,8 +20,11 @@ public class BattleEntity : MonoBehaviour
     private Slider healthSlider; // Health Slider of entity
     private Animator animator; // Animation
 
+    public Stats stats;
+
     public void CreateEntity(Stats character)
     {
+        this.stats = character;
         InitializeStats(character);
         InitializeHealthSlider();
         InitializeAnimation();
@@ -33,17 +36,22 @@ public class BattleEntity : MonoBehaviour
         if (character != null)
         {
             // Assign stats to BattleEntity stats
-            characterName = character.characterName;
-            hp = character.hp;
-            attack = character.attack;
-            dexterity = character.dexterity;
-            intelligence = character.intelligence;
-            speed = character.speed;
-            // Initialize current values
-            currentHP = hp;
-            currentSpeed = 0;
-            // Bool values
+            this.characterName = character.characterName;
+            this.hp = character.hp;
+            this.attack = character.attack;
+            this.dexterity = character.dexterity;
+            this.intelligence = character.intelligence;
+            this.speed = character.speed;
+            this.currentSpeed = 0;
+            
             isFriendly = character.friend;
+            if (character is CharacterStats characterStats) {
+                // Initialize current values
+                this.currentHP = (int)characterStats.currentHp;
+            } else {
+                this.currentHP = this.hp; 
+            }
+
             if (currentHP > 0)
                 isDead = false;
             else 

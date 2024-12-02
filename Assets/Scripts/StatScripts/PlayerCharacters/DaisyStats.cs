@@ -22,7 +22,7 @@ public class DaisyStats: CharacterStats
 
         this.attack = 10;
         this.dexterity = 5;
-        this.intelligence = 20;
+        this.intelligence = 25;
         this.speed = 110;
         
         this.level = 1;

@@ -61,9 +61,9 @@ public class SaveManager : MonoBehaviour
     private void LoadParty()
     {
         PartyCreator partyCreator = GameObject.FindGameObjectWithTag("PartyCreator").GetComponent<PartyCreator>();
-        foreach (string member in data.party)
+        foreach (var character in data.party)
         {
-            partyCreator.AddCharacterByName(member);
+            partyCreator.LoadCharacterData(character);
         }    
     }
 

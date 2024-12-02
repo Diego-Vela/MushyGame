@@ -1,4 +1,5 @@
 using System.IO;
+using System.Collections.Generic;
 //test
 [System.Serializable] // Mark this class as serializable
 public class SaveData
@@ -13,20 +14,20 @@ public class SaveData
     public bool earthDefeated;
     public bool demonDefeated;
     // Party Data
-    public string[] party;
+    public List<CharacterSaveData> party;
     // cene Data
     public string scene;
 
     // Capture player position, game state, party details, and scene name
     public SaveData(Player player, GameState gamestate, Party party, string scene)
     {
-        SavePlayerData(player);
+        SavePlayerPositionData(player);
         SaveGameStateData(gamestate);
         SavePartyData(party);
-        SaveScene(scene);
+        SaveSceneData(scene);
     }
 
-    private void SavePlayerData(Player player)
+    private void SavePlayerPositionData(Player player)
     {
         position = new float[2];
         position[0] = player.transform.position.x;
@@ -48,16 +49,34 @@ public class SaveData
 
     private void SavePartyData(Party party)
     {
-        this.party = new string[party.party.Count]; 
+        this.party = new List<CharacterSaveData>();
 
-        for (int i = 0; i < party.party.Count; i++)
-        {
-            this.party[i] = party.party[i].characterName;
+        foreach (CharacterStats member in party.party) {
+            this.party.Add(SaveCharacterData(member));
         }
     }
 
-    private void SaveScene(string scene)
+    private void SaveSceneData(string scene)
     {
         this.scene = scene;
+    }
+
+    private CharacterSaveData SaveCharacterData(CharacterStats character) {
+        return new CharacterSaveData
+        {
+            characterName = character.characterName,
+            characterClass = character.characterClass,
+            hp = character.hp,
+            currentHp = character.currentHp,
+            attack = character.attack,
+            dexterity = character.dexterity,
+            intelligence = character.intelligence,
+            speed = character.speed,
+            level = character.level,
+            expMultiplier = character.expMultiplier,
+            expToNextLevel = character.expToNextLevel,
+            currentExp = character.currentExp,
+            friend = character.friend
+        };
     }
 }

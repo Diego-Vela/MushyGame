@@ -40,7 +40,7 @@ public class HometownStateManager : StateManager
         } else {
             charlotte = gamestate.charlotte;
             gunther = gamestate.gunther;
-            daisy = gamestate.gunther;
+            daisy = gamestate.daisy;
         }
     }
 

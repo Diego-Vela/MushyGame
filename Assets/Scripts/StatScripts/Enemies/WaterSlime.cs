@@ -13,8 +13,8 @@ public class WaterSlime : Stats
         characterName = "Water Slime: Hawk Tuah";
         characterClass = "Slime Boss";
         hp = 100;
-        attack = 5;
-        speed = 215;
+        attack = 35;
+        speed = 300;
 
         level = 5;
         friend = false;

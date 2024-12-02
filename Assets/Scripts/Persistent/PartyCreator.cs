@@ -49,4 +49,21 @@ public class PartyCreator : MonoBehaviour
                 break;
         }
     }
+
+    public void LoadCharacterData(CharacterSaveData character) {
+        switch(character.characterName) {
+            case "Gunther":
+                party.AddPartyMember(new CharacterStats(gunther, character));
+                break;
+            case "Charlotte":
+                party.AddPartyMember(new CharacterStats(charlotte, character));
+                break;
+            case "Daisy":
+                party.AddPartyMember(new CharacterStats(daisy, character));
+                break;
+            default:
+                party.AddPartyMember(new CharacterStats(player, character));
+                break;
+        }
+    }
 }

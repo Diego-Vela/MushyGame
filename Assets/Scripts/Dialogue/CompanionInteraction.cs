@@ -24,8 +24,6 @@ public class CompanionInteraction : NPCInteraction
         // Deactivate NPC
         npcObject.SetActive(false);
         stateManager.Despawn(characterName);
-        // Debug Statement
-        Debug.Log($"{characterName} has been deactivated.");
         // Add to party
         AddToParty();
     }

@@ -18,6 +18,11 @@ public class CharacterStats: Stats
         InitializeStats(image);
     }
 
+    public CharacterStats(Texture2D image, CharacterSaveData character) {
+        InitializeStats(image, character);
+        this.friend = true;
+    }
+
     protected virtual void InitializeStats() 
     {
         this.characterName = "unknownCharacter";
@@ -62,30 +67,29 @@ public class CharacterStats: Stats
         this.image = image;
     }
 
-    public void SetValuesFrom(string characterName, string characterClass, float hp, float attack,
-        float dexterity, float intelligence, float speed, int level, float expMultiplier, 
-        float expToNextLevel, float currentHp, float currentExp) {
+    public void InitializeStats(Texture2D image, CharacterSaveData character) {
         
-        this.characterName = characterName;
-        this.characterClass = characterClass;
+        this.characterName = character.characterName;
+        this.characterClass = character.characterClass;
         
-        this.level = level;
-        this.expMultiplier = expMultiplier;
-        this.currentExp = currentExp;
+        this.level = character.level;
+        this.expMultiplier = character.expMultiplier;
+        this.expToNextLevel = character.expToNextLevel;
+        this.currentExp = character.currentExp;
         
-        this.hp = hp;
-        this.currentHp = currentHp;
-        this.hp = hp;
-        this.attack = attack;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-        this.speed = speed;
-        this.level = level;
+        this.hp = character.hp;
+        this.currentHp = character.currentHp;
+        this.attack = character.attack;
+        this.dexterity = character.dexterity;
+        this.intelligence = character.intelligence;
+        this.speed = character.speed;
 
-        Debug.Log($"Stats from{characterName} copied.");
+        Debug.Log($"Stats for {characterName} copied.");
+
+        this.image = image;
     }
 
-    public float GainExp(int exp) {
+    public int GainExp(float exp) {
         float gainedExp = exp * this.expMultiplier;
         
         this.currentExp += gainedExp;
@@ -94,12 +98,19 @@ public class CharacterStats: Stats
             LevelUp();
         }
 
-        return gainedExp;
+        return (int)gainedExp;
     }
 
-    private void LevelUp() {
+    protected virtual void LevelUp() {
         this.level++;
         currentExp -= expToNextLevel;
         expToNextLevel = expToNextLevel * 1.5f;
+
+        // Increase Stats
+        this.hp += 15;
+        this.currentHp = this.hp;
+        this.attack += 5;
+        this.dexterity += 3;
+        this.intelligence += 5;
     }
 }

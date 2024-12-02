@@ -48,8 +48,7 @@ public class NPCInteraction : MonoBehaviour
             {
                 dialoguePanel.SetActive(false);  // Hide the dialogue panel when done
                 currentDialogueIndex = 0;       // Reset dialogue index
-                if (isCompanion) 
-                {
+                if (isCompanion) {
                     deactivateNPC();
                 }
             }
@@ -106,11 +105,7 @@ public class NPCInteraction : MonoBehaviour
 
     public virtual void deactivateNPC()
     {        
-        // Deactivate NPC
         npcObject.SetActive(false);
-        // Debug Statement
-        Debug.Log("Parent NPC has been deactivated.");
-        // Change map state
     }
 
     public void prepareDialogue()

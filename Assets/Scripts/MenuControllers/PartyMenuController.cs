@@ -14,6 +14,7 @@ public class PartyMenuController : MonoBehaviour
         foreach(GameObject slot in slots) {
             members.Add(slot.GetComponent<PartyMenuUI>());
         }
+        //Debug.Log(party);
     }
 
     void DeactivateMembers() {
@@ -23,7 +24,6 @@ public class PartyMenuController : MonoBehaviour
     }
 
     public void ActivateMembers() {
-        Debug.Log($"Activating {party.party.Count} members");
         for ( int i = 0; i < party.party.Count; i++) {
             members[i].SetFields(party.party[i]);
             slots[i].SetActive(true);

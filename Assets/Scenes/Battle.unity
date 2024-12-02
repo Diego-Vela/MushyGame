@@ -874,7 +874,7 @@ MonoBehaviour:
   battleMenu: {fileID: 1311529341}
   loseMenu: {fileID: 1842793696}
   actions: {fileID: 332441593}
-  musicManager: {fileID: 1958469671}
+  musicManager: {fileID: 0}
   enemy: {fileID: 1532449349751219026}
   log: {fileID: 1484782574}
 --- !u!1 &221562961
@@ -5179,7 +5179,7 @@ GameObject:
   - component: {fileID: 1958469670}
   - component: {fileID: 1958469671}
   m_Layer: 0
-  m_Name: MusicManager
+  m_Name: AudioClipManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5306,13 +5306,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1958469665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4661944165f9ac45835181fbce09f69, type: 3}
+  m_Script: {fileID: 11500000, guid: 93fbaab4daee40b49bbc1c7178359e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introClip: {fileID: 8300000, guid: b886841a93a451b4d91db87c84c93891, type: 3}
-  loopClip: {fileID: 8300000, guid: 20cf9b75a680eba459270a477708434f, type: 3}
-  victoryClip: {fileID: 8300000, guid: 58acdb196b415e94aaf7c49cc49a948e, type: 3}
-  loseClip: {fileID: 8300000, guid: bf514d10a17f0424786897628c52a621, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: b886841a93a451b4d91db87c84c93891, type: 3}
+  - {fileID: 8300000, guid: 20cf9b75a680eba459270a477708434f, type: 3}
 --- !u!1 &1979111710
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,10 @@ TagManager:
   - Party
   - PartyCreator
   - MusicManager
+  - InteractMarker
+  - Actor1Dialogue
+  - Actor2Dialogue
+  - BrightnessCover
   layers:
   - Default
   - TransparentFX

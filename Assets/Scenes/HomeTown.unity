@@ -44445,7 +44445,7 @@ GameObject:
   - component: {fileID: 604034080}
   - component: {fileID: 604034081}
   m_Layer: 0
-  m_Name: MusicManager
+  m_Name: AudioClipManager
   m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44572,13 +44572,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 604034078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4661944165f9ac45835181fbce09f69, type: 3}
+  m_Script: {fileID: 11500000, guid: 93fbaab4daee40b49bbc1c7178359e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introClip: {fileID: 8300000, guid: e42b81444c91f9543a26c4f36b48f1a7, type: 3}
-  loopClip: {fileID: 8300000, guid: e42b81444c91f9543a26c4f36b48f1a7, type: 3}
-  victoryClip: {fileID: 8300000, guid: 58acdb196b415e94aaf7c49cc49a948e, type: 3}
-  loseClip: {fileID: 8300000, guid: bf514d10a17f0424786897628c52a621, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: e42b81444c91f9543a26c4f36b48f1a7, type: 3}
 --- !u!1 &786104917
 GameObject:
   m_ObjectHideFlags: 0
@@ -59463,9 +59461,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1153148230118943764, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449185582137719311, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967913920103843793, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7429904937557542597, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
       propertyPath: m_Name
       value: Panels
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786566111990902005, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8858543323421193793, guid: 1e14957c5df41a242be632c21a0940b6, type: 3}
       propertyPath: m_Pivot.x

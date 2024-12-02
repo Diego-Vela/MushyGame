@@ -27,6 +27,7 @@ public class BattleController : MonoBehaviour
     public EventTextBoxController log; // Reference to text box
 
     private List<BattleEntity> readyEntities = new List<BattleEntity>();
+    private float expGain = 10;
 
     #endregion
 
@@ -251,6 +252,7 @@ public class BattleController : MonoBehaviour
         //winMenu.SetActive(true);
         musicManager.PlayVictory();
         yield return StartCoroutine(log.LogEvent($"You've won this battle!"));
+        yield return StartCoroutine(HandleExpGain());
         sceneTransitioner.ReturnToSavedPosition(true);
     }
     
@@ -262,7 +264,22 @@ public class BattleController : MonoBehaviour
         musicManager.PlayLoss();
         loseMenu.SetActive(true);
     }
+
+    IEnumerator HandleExpGain() {
+        string results = "";
+        foreach(BattleEntity member in party) {
+            if (member.stats is CharacterStats characterStats) {
+                results += $"{characterStats.characterName} gained {characterStats.GainExp(expGain)} exp.\n";
+            }
+        }
+
+        yield return StartCoroutine(log.LogEvent($"{results}"));
+    }
+
     #endregion
+
+
+
 
     public BattleEntity EntityAI(List<BattleEntity> targets)
     {

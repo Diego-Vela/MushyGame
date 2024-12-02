@@ -36,6 +36,7 @@ public class GameState : MonoBehaviour
     {
         charlotte = true;
         gunther = true;
+        daisy = true;
 
         waterDefeated = false;
         earthDefeated = false;
