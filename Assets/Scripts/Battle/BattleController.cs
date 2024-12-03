@@ -22,7 +22,7 @@ public class BattleController : MonoBehaviour
     public GameObject loseMenu; // UI for loseMenu
     public GameObject actions; // Reference to turn off buttons when not player turn
     private SceneTransitioner sceneTransitioner; // return to previous scene.
-    public AmbientMusicManager musicManager; // Reference to the music manager
+    public MusicManager musicManager; // Reference to the music manager
     public BattleEntity enemy; // Reference to the target 
     public EventTextBoxController log; // Reference to text box
 
@@ -42,8 +42,9 @@ public class BattleController : MonoBehaviour
 
     private void Start()
     {
-        // Get the prebattle position
+        // Find GameObjects
         sceneTransitioner = GameObject.FindGameObjectWithTag("SceneTransitioner").GetComponent<SceneTransitioner>();
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager").GetComponent<MusicManager>();
 
         // winMenu.SetActive(false);
         actions.SetActive(false);
@@ -249,8 +250,6 @@ public class BattleController : MonoBehaviour
     IEnumerator winGame() 
     {
         Debug.Log("You won the battle!");
-        //winMenu.SetActive(true);
-        musicManager.PlayVictory();
         yield return StartCoroutine(log.LogEvent($"You've won this battle!"));
         yield return StartCoroutine(HandleExpGain());
         sceneTransitioner.ReturnToSavedPosition(true);
@@ -259,7 +258,6 @@ public class BattleController : MonoBehaviour
     IEnumerator loseGame() 
     {
         Debug.Log("You lost the battle!");
-        // Lose Screen Here to return to title
         yield return StartCoroutine(log.LogEvent($"You've lost this battle!"));
         musicManager.PlayLoss();
         loseMenu.SetActive(true);

@@ -16,10 +16,9 @@ public class EscMenuController : MonoBehaviour
     public GameObject brightnessMenu;
     public Slider brightnessSlider;
     private Player player; // Reference to player for saving
-    private GameObject musicManager; // Reference to the musicManager
     public GameObject volumeMenu; // Reference to the volumeSlider
     public Slider volumeSlider; // Reference to the slider
-    private AudioSource music; // Reference to the audioSource component
+    public AmbientMusicManager music; // Reference to the audioSource component
 
     private bool isMenuActive;
     #endregion
@@ -28,8 +27,6 @@ public class EscMenuController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
-        music = musicManager.GetComponent<AudioSource>();
         brightnessCover = GameObject.FindGameObjectWithTag("BrightnessCover");
         escMenu.SetActive(false);
         partyMenu.SetActive(false);
@@ -146,7 +143,7 @@ public class EscMenuController : MonoBehaviour
         controls.SetActive(false);
         volumeMenu.SetActive(true);
         brightnessMenu.SetActive(false);
-        volumeSlider.value = music.volume;
+        volumeSlider.value = music.GetVolume();
         volumeSlider.onValueChanged.AddListener(SetVolume);
     }
 
@@ -171,7 +168,7 @@ public class EscMenuController : MonoBehaviour
         brightnessCoverImage.color = currentColor;
     }
     public void SetVolume(float volume) {
-        music.volume = volume;
+        music.ChangeVolume(volume);
     }
     #endregion
 }
