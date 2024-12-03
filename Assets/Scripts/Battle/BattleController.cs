@@ -27,7 +27,7 @@ public class BattleController : MonoBehaviour
     public EventTextBoxController log; // Reference to text box
 
     private List<BattleEntity> readyEntities = new List<BattleEntity>();
-    private float expGain = 10;
+    private float expGain = 15;
 
     #endregion
 
@@ -149,12 +149,20 @@ public class BattleController : MonoBehaviour
         }
         else
         {
-            // Enemy attacks automatically
-            BattleEntity target = EntityAI(party);
+            // Enemy attacks twice
+            BattleEntity target1 = EntityAI(party);
+
             yield return StartCoroutine(log.LogEvent(
-                $"{entity.characterName} attacks {target.characterName} for {entity.attack} damage!"));
-            target.TakeDamage(entity.attack);
-            yield return StartCoroutine(CheckDeath(target));
+                $"{entity.characterName} attacks {target1.characterName} for {entity.attack} damage!"));
+            target1.TakeDamage(entity.attack);
+            yield return StartCoroutine(CheckDeath(target1));
+
+            BattleEntity target2 = EntityAI(party);
+
+            yield return StartCoroutine(log.LogEvent(
+                $"{entity.characterName} attacks {target2.characterName} for {entity.attack} damage!"));
+            target2.TakeDamage(entity.attack);
+            yield return StartCoroutine(CheckDeath(target2));
         }
     }
 
@@ -308,7 +316,7 @@ public class BattleController : MonoBehaviour
 
         foreach (BattleEntity target in targets)
         {
-            if (target.currentHP < lowestHpEntity.currentHP)
+            if (target.currentHP/target.hp < lowestHpEntity.currentHP/lowestHpEntity.hp)
             {
                 lowestHpEntity = target;
             }

@@ -17,12 +17,12 @@ public class GuntherStats: CharacterStats
         characterName = "Gunther";
         characterClass = "";
 
-        this.hp = 100;
+        this.hp = 175;
         this.currentHp = this.hp;
 
-        this.attack = 35;
+        this.attack = 30;
         this.dexterity = 5;
-        this.intelligence = 8;
+        this.intelligence = 5;
         this.speed = 80;
         
         this.level = 1;

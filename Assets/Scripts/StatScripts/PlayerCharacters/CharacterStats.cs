@@ -49,10 +49,10 @@ public class CharacterStats: Stats
         characterName = "Protagonist";
         characterClass = "";
 
-        this.hp = 100;
+        this.hp = 130;
         this.currentHp = this.hp;
 
-        this.attack = 15;
+        this.attack = 20;
         this.dexterity = 5;
         this.intelligence = 8;
         this.speed = 100;
@@ -110,7 +110,7 @@ public class CharacterStats: Stats
         this.hp += 15;
         this.currentHp = this.hp;
         this.attack += 5;
-        this.dexterity += 3;
-        this.intelligence += 5;
+        //this.dexterity += 3;
+        this.intelligence += 2;
     }
 }

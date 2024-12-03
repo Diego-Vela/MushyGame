@@ -13,7 +13,7 @@ public class WaterSlime : Stats
         characterName = "Water Slime: Hawk Tuah";
         characterClass = "Slime Boss";
         hp = 100;
-        attack = 35;
+        attack = 30;
         speed = 300;
 
         level = 5;
@@ -29,9 +29,9 @@ public class WaterSlime : Stats
         // Set the enemy-specific stats
         characterName = "Water Slime: Hawk Tuah";
         characterClass = "Slime Boss";
-        hp = 150;
-        attack = 35;
-        speed = 300;
+        hp = 200;
+        attack = 30;
+        speed = 200;
 
         level = 5;
         friend = false;

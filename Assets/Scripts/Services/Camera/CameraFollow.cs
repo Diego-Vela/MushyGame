@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player; //Has the player object
+    private Transform player; //Has the player object
     public Vector3 offset;   //Offset distance between the player and camera
+
+    void Start() {
+        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+    }
 
     void LateUpdate()
     {

@@ -17,12 +17,12 @@ public class DaisyStats: CharacterStats
         characterName = "Daisy";
         characterClass = "";
 
-        this.hp = 80;
+        this.hp = 90;
         this.currentHp = this.hp;
 
-        this.attack = 10;
+        this.attack = 15;
         this.dexterity = 5;
-        this.intelligence = 25;
+        this.intelligence = 15;
         this.speed = 110;
         
         this.level = 1;

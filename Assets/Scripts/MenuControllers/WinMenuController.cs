@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinMenuController : MonoBehaviour
-{
-    public GameObject winMenu; // Reference to winMenu
-
+public class WinMenuController : MonoBehaviour {
     public void GoToTitle()
     {
         SceneManager.LoadScene("Title");

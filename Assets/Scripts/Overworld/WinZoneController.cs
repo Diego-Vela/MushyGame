@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WinZoneController : MonoBehaviour
 {
-    public WinMenuController winMenu; 
+    public GameObject winMenu; 
     public AmbientMusicManager music;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,7 +13,7 @@ public class WinZoneController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             music.PlayVictory();
-            winMenu.winMenu.SetActive(true);
+            winMenu.SetActive(true);
             Time.timeScale = 0f;
         }
     }

@@ -17,10 +17,10 @@ public class CharlotteStats: CharacterStats
         characterName = "Charlotte";
         characterClass = "";
 
-        this.hp = 100;
+        this.hp = 95;
         this.currentHp = this.hp;
 
-        this.attack = 12;
+        this.attack = 18;
         this.dexterity = 5;
         this.intelligence = 8;
         this.speed = 135;

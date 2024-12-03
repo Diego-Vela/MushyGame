@@ -29,9 +29,9 @@ public class DemonSlime : Stats
         // Set the enemy-specific stats
         characterName = "Demon Slime: Himothy";
         characterClass = "Demon Slime Boss";
-        hp = 250;
-        attack = 50;
-        speed = 130;
+        hp = 280;
+        attack = 45;
+        speed = 150;
 
         level = 5;
         friend = false;

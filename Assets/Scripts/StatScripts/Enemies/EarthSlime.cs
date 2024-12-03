@@ -13,7 +13,7 @@ public class EarthSlime : Stats
         characterName = "Earth Slime: Rock the Dwayne Johnson";
         characterClass = "Slime Boss";
         hp = 500;
-        attack = 30;
+        attack = 40;
         speed = 75;
 
         level = 5;
@@ -30,7 +30,7 @@ public class EarthSlime : Stats
         characterName = "Earth Slime: Rock the Dwayne Johnson";
         characterClass = "Slime Boss";
         hp = 300;
-        attack = 60;
+        attack = 40;
         speed = 70;
 
         level = 5;

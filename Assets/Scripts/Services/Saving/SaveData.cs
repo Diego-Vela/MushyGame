@@ -79,4 +79,6 @@ public class SaveData
             friend = character.friend
         };
     }
+
+    
 }

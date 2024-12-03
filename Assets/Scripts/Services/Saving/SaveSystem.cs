@@ -5,6 +5,7 @@ public static class SaveSystem
 {   
     #region save-file-path
     private static string saveFilePath = Path.Combine(Application.persistentDataPath, "MushGameDemo.json");
+    private static string settingsFilePath = Path.Combine(Application.persistentDataPath, "MushGameDemoSettings.json");
     #endregion
 
     #region public-save-system-methods
@@ -51,5 +52,19 @@ public static class SaveSystem
             Debug.Log("No save file to delete.");
         }
     }
+
+
+    /*public static void SaveSettings(float volume, float brightness) {
+        SettingsSave settingsData = new SettingsSave(volume, brightness);
+
+        string jsonData = JsonUtility.ToJson(settingsData, true);
+
+        saveFilePath.WriteAllText(SettingsFilePath, jsonData);
+        Debug.Log("Settings Being Saved");
+    }
+    public static SettingsSave Load() {
+
+    }*/
+
     #endregion
 }
