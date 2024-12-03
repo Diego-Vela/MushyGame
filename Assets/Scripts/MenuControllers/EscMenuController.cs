@@ -18,7 +18,9 @@ public class EscMenuController : MonoBehaviour
     private Player player; // Reference to player for saving
     public GameObject volumeMenu; // Reference to the volumeSlider
     public Slider volumeSlider; // Reference to the slider
-    public AmbientMusicManager music; // Reference to the audioSource component
+    private AmbientMusicManager music; // Reference to the audioSource component
+
+    public GameObject escButton;
 
     private bool isMenuActive;
     #endregion
@@ -28,9 +30,11 @@ public class EscMenuController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         brightnessCover = GameObject.FindGameObjectWithTag("BrightnessCover");
+        music = GameObject.FindGameObjectWithTag("MusicManager").GetComponent<AmbientMusicManager>();
         escMenu.SetActive(false);
         partyMenu.SetActive(false);
         settings.SetActive(false);
+        escButton.SetActive(true);
     }
 
     void Update()
@@ -38,14 +42,10 @@ public class EscMenuController : MonoBehaviour
         // Check if the Escape key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isMenuActive)
-            {
-                //Debug.Log("Resuming Game");
+            if (isMenuActive) {
                 ResumeGame();
             }
-            else
-            {
-                //Debug.Log("Pausing Game");
+            else {
                 PauseGame();
             }
         }
@@ -68,6 +68,7 @@ public class EscMenuController : MonoBehaviour
         escMenu.SetActive(false);
         Time.timeScale = 1;
         isMenuActive = false;
+        escButton.SetActive(true);
     }
     
         // Pauses the game and shows the escape menu
@@ -91,6 +92,7 @@ public class EscMenuController : MonoBehaviour
         escMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         isMenuActive = true;
+        escButton.SetActive(false);
     }
     
     public void Back() {

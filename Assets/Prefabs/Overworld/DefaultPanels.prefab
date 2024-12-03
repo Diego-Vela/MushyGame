@@ -8954,6 +8954,7 @@ MonoBehaviour:
   volumeMenu: {fileID: 7136624583372285267}
   volumeSlider: {fileID: 805893014622544279}
   music: {fileID: 0}
+  escButton: {fileID: 636759022779726615}
 --- !u!1 &6024488799189515372
 GameObject:
   m_ObjectHideFlags: 0
