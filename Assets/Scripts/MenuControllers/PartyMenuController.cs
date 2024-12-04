@@ -9,12 +9,9 @@ public class PartyMenuController : MonoBehaviour
     private Party party;
     void Start()
     {
+        InitializeSlots();
         DeactivateMembers();
         party = GameObject.FindGameObjectWithTag("Party").GetComponent<Party>();
-        foreach(GameObject slot in slots) {
-            members.Add(slot.GetComponent<PartyMenuUI>());
-        }
-        //Debug.Log(party);
     }
 
     void DeactivateMembers() {
@@ -23,10 +20,18 @@ public class PartyMenuController : MonoBehaviour
         }
     }
 
+    void InitializeSlots() {
+        foreach(GameObject slot in slots) {
+            slot.SetActive(true);
+            slot.GetComponent<PartyMenuUI>().Initialize();
+            members.Add(slot.GetComponent<PartyMenuUI>());
+        }
+    }
+
     public void ActivateMembers() {
         for ( int i = 0; i < party.party.Count; i++) {
-            members[i].SetFields(party.party[i]);
             slots[i].SetActive(true);
+            members[i].SetFields(party.party[i]);
         }
     }
 }

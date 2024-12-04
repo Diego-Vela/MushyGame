@@ -8729,7 +8729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6341786451897410787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8953,7 +8953,6 @@ MonoBehaviour:
   brightnessSlider: {fileID: 460703864246882432}
   volumeMenu: {fileID: 7136624583372285267}
   volumeSlider: {fileID: 805893014622544279}
-  music: {fileID: 0}
   escButton: {fileID: 636759022779726615}
 --- !u!1 &6024488799189515372
 GameObject:
@@ -10360,7 +10359,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

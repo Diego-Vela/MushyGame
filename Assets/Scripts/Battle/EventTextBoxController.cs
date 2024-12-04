@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class EventTextBoxController : MonoBehaviour
 {
     public TextMeshProUGUI eventText; // Reference to the TextMeshPro component
-    private float typingSpeed = .02f; // Time between each letter
+    private float typingSpeed = .01f; // Time between each letter
     public GameObject playerGuide; // Reference to the guide
 
     private void Start() {

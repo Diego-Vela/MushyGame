@@ -15,7 +15,7 @@ public class PartyMenuUI : MonoBehaviour
     public TextMeshProUGUI expLabel;
     public GameObject image;
 
-    void Start() {
+    public void Initialize() {
         hpBar = hpBarObject.GetComponent<RectTransform>();
         expBar = expBarObject.GetComponent<RectTransform>();
     }
